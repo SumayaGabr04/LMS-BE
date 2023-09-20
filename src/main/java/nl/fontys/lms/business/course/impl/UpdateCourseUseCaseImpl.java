@@ -16,11 +16,9 @@ public class UpdateCourseUseCaseImpl implements UpdateCourseUseCase {
     private final CourseRepository courseRepository;
 
     @Override
-    public void UpdateCourse(UpdateCourseRequest request){
-        Optional<CourseEntity> courseOptional = Optional.ofNullable(courseRepository.findById(request.getId()));
-        if(courseOptional.isEmpty()){
-            throw new InvalidCourseException("COURSE_INVALID");
-        }
-        CourseEntity updatedCourse = courseOptional.get();
+    public void UpdateCourse(UpdateCourseRequest request) {
+        Optional<CourseEntity> courseOptional = courseRepository.findById(request.getId());
+        CourseEntity updatedCourse = courseOptional.orElseThrow(() -> new InvalidCourseException("COURSE_INVALID"));
+
     }
 }

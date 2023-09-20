@@ -5,6 +5,7 @@ import nl.fontys.lms.persistence.entity.CourseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Repository
 public class FakeCourseRepositoryImpl implements CourseRepository {
@@ -36,12 +37,11 @@ public class FakeCourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public CourseEntity findById(long courseId) {
+    public Optional<CourseEntity> findById(long courseId) {
         return this.savedCourses
                 .stream()
                 .filter(courseEntity -> courseEntity.getId() == courseId)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     @Override

@@ -18,14 +18,10 @@ public class GetCourseUseCaseImpl implements GetCourseUseCase {
 //        public Optional<Course> getCourse(long courseId){
 //            return courseRepository.findById(courseId).map(CourseConverter::convert);
 //        }
-    @Override
-    public Optional<Course> getCourse(long courseId) {
-        CourseEntity courseEntity = courseRepository.findById(courseId);
-        if (courseEntity != null) {
-            return Optional.of(CourseConverter.convert(courseEntity));
-        } else {
-            return Optional.empty();
-        }
-    }
+@Override
+public Optional<Course> getCourse(long courseId) {
+    Optional<CourseEntity> optionalCourseEntity = courseRepository.findById(courseId);
+    return optionalCourseEntity.map(CourseConverter::convert);
+}
 
 }
