@@ -13,6 +13,7 @@ import nl.fontys.lms.persistence.TeacherRepository;
 import nl.fontys.lms.persistence.entity.TeacherEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -28,18 +29,10 @@ public class GetTeacherUseCaseImpl implements GetTeacherUseCase {
             throw new UserNotFoundException();
         }
 
-        // Use the GetEnrolledCoursesUseCase to fetch the list of courses taught by the teacher
-        GetAllEnrolledCoursesRequest request = GetAllEnrolledCoursesRequest.builder()
-                .userId(teacherId)
-                .build();
-        GetAllEnrolledCoursesResponse enrolledCoursesResponse = getEnrolledCoursesUseCase.getCourses(request);
-
-        // Use .map(TeacherConverter::convert) to convert the TeacherEntity to a Teacher object
-        Optional<Teacher> teacherOptional = Optional.of(teacherEntity).map(TeacherConverter::convert);
-
-        // Set the courses taught by the teacher
-        teacherOptional.ifPresent(teacher -> teacher.setCoursesTaught(enrolledCoursesResponse.getCourses()));
+        // Convert TeacherEntity to Teacher using a converter
+        Optional<Teacher> teacherOptional = Optional.ofNullable(teacherEntity).map(TeacherConverter::convert);
 
         return teacherOptional;
     }
+
 }

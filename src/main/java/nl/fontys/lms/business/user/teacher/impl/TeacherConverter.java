@@ -11,15 +11,21 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TeacherConverter {
     public static Teacher convert(TeacherEntity entity) {
-            return Teacher.builder()
+        if (entity == null) {
+            return null;
+        }
+
+        return Teacher.builder()
                 .id(entity.getTeacherId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
                 .password(entity.getPassword())
-                .coursesTaught(new ArrayList<>(entity.getCoursesTaught().stream()
+                .coursesTaught(entity.getCoursesTaught() != null
+                        ? new ArrayList<>(entity.getCoursesTaught().stream()
                         .map(CourseConverter::convert)
-                        .collect(Collectors.toList())))
+                        .collect(Collectors.toList()))
+                        : new ArrayList<>()) // Initialize with an empty list if coursesTaught is null
                 .department(entity.getDepartment())
                 .hireDate(entity.getHireDate())
                 .build();
