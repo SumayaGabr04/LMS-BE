@@ -30,7 +30,7 @@ public class CoursesController {
         return ResponseEntity.ok().body(courseOptional.get());
     }
 
-    @GetMapping("enrolled-courses") // Change the URL pattern here
+    @GetMapping("enrolled-courses")
     public ResponseEntity<GetAllEnrolledCoursesResponse> getAllEnrolledCourses(@RequestParam(value = "userId", required = false) int userId){
         GetAllEnrolledCoursesRequest request = GetAllEnrolledCoursesRequest.builder().userId(userId).build();
         GetAllEnrolledCoursesResponse response = getEnrolledCoursesUseCase.getCourses(request);

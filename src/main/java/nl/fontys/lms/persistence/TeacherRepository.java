@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
-//@Repository
 public interface TeacherRepository {
     boolean existsById(long teacherId);
 

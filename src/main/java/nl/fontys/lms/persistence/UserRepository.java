@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
-//@Repository
 public interface UserRepository {
     boolean existsByEmail(String email);
 
