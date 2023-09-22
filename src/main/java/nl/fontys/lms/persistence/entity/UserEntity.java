@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
-//@Builder
-//@AllArgsConstructor
 @SuperBuilder
 @NoArgsConstructor
 public class UserEntity {

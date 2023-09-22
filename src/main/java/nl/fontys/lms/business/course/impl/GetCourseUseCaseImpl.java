@@ -14,10 +14,6 @@ import java.util.Optional;
 public class GetCourseUseCaseImpl implements GetCourseUseCase {
     private final CourseRepository courseRepository;
 
-//        @Override
-//        public Optional<Course> getCourse(long courseId){
-//            return courseRepository.findById(courseId).map(CourseConverter::convert);
-//        }
 @Override
 public Optional<Course> getCourse(long courseId) {
     Optional<CourseEntity> optionalCourseEntity = courseRepository.findById(courseId);

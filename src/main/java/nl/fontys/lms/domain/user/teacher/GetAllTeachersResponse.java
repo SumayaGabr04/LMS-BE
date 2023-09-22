@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import nl.fontys.lms.persistence.entity.TeacherEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,5 +14,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllTeachersResponse {
-    private List<Teacher> teachers;
+    private ArrayList<Teacher> teachers;
 }

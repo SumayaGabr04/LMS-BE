@@ -2,6 +2,8 @@ package nl.fontys.lms.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import nl.fontys.lms.business.user.CreateUserUseCase;
 import nl.fontys.lms.business.user.DeleteUserUseCase;
 import nl.fontys.lms.business.user.GetUserUseCase;
@@ -13,16 +15,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/users")
-@AllArgsConstructor
-public class UsersController {
+@NoArgsConstructor(force = true)
+public abstract class UsersController {
     private final GetUserUseCase getUserUseCase;
     private final CreateUserUseCase createUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("id") final long id){
         final Optional<User> userOptional = getUserUseCase.getUserById(id);
         if(userOptional.isEmpty()){
@@ -31,19 +31,19 @@ public class UsersController {
         return ResponseEntity.ok().body(UserResponse.builder().id(userOptional.get().getId()).build());
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable long userId) {
-        deleteUserUseCase.deleteUser(userId);
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long id) {
+        deleteUserUseCase.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping()
+    @PostMapping("/createUser")
     public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid UserRequest request) {
         CreateResponse response = createUserUseCase.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/updateUser/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") long id,
                                            @RequestBody @Valid UpdateUserRequest request) {
         request.setId(id);

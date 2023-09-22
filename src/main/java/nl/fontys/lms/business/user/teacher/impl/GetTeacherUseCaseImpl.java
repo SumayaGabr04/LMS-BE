@@ -34,17 +34,12 @@ public class GetTeacherUseCaseImpl implements GetTeacherUseCase {
                 .build();
         GetAllEnrolledCoursesResponse enrolledCoursesResponse = getEnrolledCoursesUseCase.getCourses(request);
 
-        Teacher teacher = Teacher.builder()
-                .id(teacherEntity.getTeacherId())
-                .firstName(teacherEntity.getFirstName())
-                .lastName(teacherEntity.getLastName())
-                .email(teacherEntity.getEmail())
-                .password(teacherEntity.getPassword())
-                .coursesTaught(enrolledCoursesResponse.getCourses())
-                .department(teacherEntity.getDepartment())
-                .hireDate(teacherEntity.getHireDate())
-                .build();
+        // Use .map(TeacherConverter::convert) to convert the TeacherEntity to a Teacher object
+        Optional<Teacher> teacherOptional = Optional.of(teacherEntity).map(TeacherConverter::convert);
 
-        return Optional.of(teacher);
+        // Set the courses taught by the teacher
+        teacherOptional.ifPresent(teacher -> teacher.setCoursesTaught(enrolledCoursesResponse.getCourses()));
+
+        return teacherOptional;
     }
 }

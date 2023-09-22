@@ -33,16 +33,11 @@ public class GetStudentUseCaseImpl implements GetStudentUseCase {
                 .build();
         GetAllEnrolledCoursesResponse enrolledCoursesResponse = getEnrolledCoursesUseCase.getCourses(request);
 
-        Student student = Student.builder()
-                .id(studentEntity.getStudentId())
-                .firstName(studentEntity.getFirstName())
-                .lastName(studentEntity.getLastName())
-                .email(studentEntity.getEmail())
-                .password(studentEntity.getPassword())
-                .coursesEnrolled(enrolledCoursesResponse.getCourses())
-                .major(studentEntity.getMajor())
-                .enrollmentDate(studentEntity.getEnrollmentDate())
-                .build();
+        // Convert StudentEntity to Student using the StudentConverter
+        Student student = StudentConverter.convert(studentEntity);
+
+        // Set the courses enrolled by the student
+        student.setCoursesEnrolled(enrolledCoursesResponse.getCourses());
 
         return Optional.of(student);
     }

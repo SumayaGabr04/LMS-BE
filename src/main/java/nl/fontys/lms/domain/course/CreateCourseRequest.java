@@ -1,7 +1,6 @@
 package nl.fontys.lms.domain.course;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +15,8 @@ import java.util.Date;
 public class CreateCourseRequest {
 
     @NotBlank
+    @Size(min = 3, max = 100, message = "Course name must be between 3 and 100 characters.")
+    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Course name can only contain letters, numbers, and spaces.")
     private String courseName;
 
     @NotBlank
@@ -28,8 +29,10 @@ public class CreateCourseRequest {
     private int enrollmentCapacity;
 
     @NotNull
+    @FutureOrPresent(message = "Start date must be in the future or the present.")
     private Date startDate;
 
     @NotNull
+    @FutureOrPresent(message = "End date must be in the future or the present.")
     private Date endDate;
 }

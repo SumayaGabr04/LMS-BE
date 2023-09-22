@@ -15,14 +15,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/students")
 @AllArgsConstructor
-public class StudentsController {
+public class StudentsController extends UsersController{
     private final GetStudentUseCase getStudentUseCase;
     private final CreateStudentUseCase createStudentUseCase;
     private final UpdateStudentUseCase updateStudentUseCase;
     private final DeleteStudentUseCase deleteStudentUseCase;
     private final GetAllStudentsUseCase getAllStudentsUseCase;
 
-    @GetMapping("{id}")
+    @GetMapping("/student/{id}")
     public ResponseEntity<GetStudentResponse> getStudent(@PathVariable("id") final long id) {
         final Optional<Student> studentOptional = getStudentUseCase.getStudent(id);
         if (studentOptional.isEmpty()) {
@@ -35,19 +35,19 @@ public class StudentsController {
         return ResponseEntity.ok(getAllStudentsUseCase.getStudents());
     }
 
-    @DeleteMapping("{studentId}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable long studentId) {
-        deleteStudentUseCase.deleteStudent(studentId);
+    @DeleteMapping("/student/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable long id) {
+        deleteStudentUseCase.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping()
+    @PostMapping("/createStudent")
     public ResponseEntity<CreateResponse> createStudent(@RequestBody @Valid CreateStudentRequest request) {
         CreateResponse response = createStudentUseCase.createStudent(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateStudent/{id}")
     public ResponseEntity<Void> updateStudent(@PathVariable("id") long id,
                                               @RequestBody @Valid UpdateStudentRequest request) {
         request.setId(id);

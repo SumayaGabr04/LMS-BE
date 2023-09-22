@@ -1,11 +1,13 @@
 package nl.fontys.lms.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Data
 @Builder
@@ -19,6 +21,7 @@ public class UserRequest {
     private String lastName;
 
     @NotBlank
+    @Email(message = "Please provide a valid email address")
     private String email;
 
     @NotBlank

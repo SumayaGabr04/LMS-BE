@@ -10,7 +10,15 @@ import org.springframework.context.annotation.ComponentScan;
 		"nl.fontys.lms.persistence.impl",
 		"nl.fontys.lms.persistence.entity",
 		"nl.fontys.lms.controller",
-		"nl.fontys.lms.business"})
+		"nl.fontys.lms.business",
+		"nl.fontys.lms.business.user",
+		"nl.fontys.lms.business.user.impl",
+		"nl.fontys.lms.business.user.teacher",
+		"nl.fontys.lms.business.user.teacher.impl",
+		"nl.fontys.lms.domain",
+		"nl.fontys.lms.domain.user",
+		"nl.fontys.lms.business.exception"
+		})
 
 public class LmsApplication {
 

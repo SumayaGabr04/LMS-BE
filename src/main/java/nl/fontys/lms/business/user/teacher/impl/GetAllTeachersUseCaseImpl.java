@@ -8,6 +8,7 @@ import nl.fontys.lms.domain.user.teacher.Teacher;
 import nl.fontys.lms.persistence.TeacherRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +20,9 @@ public class GetAllTeachersUseCaseImpl implements GetAllTeachersUseCase {
     @Override
     public GetAllTeachersResponse getTeachers() {
         // Retrieve all teacher entities from the repository
-        List<Teacher> teachers = teacherRepository.findAll().stream()
+        ArrayList<Teacher> teachers = teacherRepository.findAll().stream()
                 .map(TeacherConverter::convert) // Convert entities to domain objects
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
 
         return GetAllTeachersResponse.builder().teachers(teachers).build();
     }

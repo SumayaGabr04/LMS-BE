@@ -18,11 +18,8 @@ public class CourseEntity {
     private String description;
     private String instructor;
     private int enrollmentCapacity;
-//    private String prerequisites;
     private Date startDate;
     private Date endDate;
 
     private ArrayList<String> courseMaterials;
-
-//    private ArrayList<StudentEntity> enrolledStudents;
 }

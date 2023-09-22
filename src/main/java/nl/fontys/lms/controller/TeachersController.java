@@ -16,14 +16,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/teachers")
 @AllArgsConstructor
-public class TeachersController {
+public class TeachersController extends UsersController{
     private final GetTeacherUseCase getTeacherUseCase;
     private final CreateTeacherUseCase createTeacherUseCase;
     private final UpdateTeacherUseCase updateTeacherUseCase;
     private final DeleteTeacherUseCase deleteTeacherUseCase;
     private final GetAllTeachersUseCase getAllTeachersUseCase;
 
-    @GetMapping("{id}")
+    @GetMapping("/teacher/{id}")
     public ResponseEntity<GetTeacherResponse> getTeacher(@PathVariable("id") final long id){
         final Optional<Teacher> teacherOptional = getTeacherUseCase.getTeacher(id);
         if(teacherOptional.isEmpty()){
@@ -37,19 +37,19 @@ public class TeachersController {
         return ResponseEntity.ok(getAllTeachersUseCase.getTeachers());
     }
 
-    @DeleteMapping("{teacherId}")
-    public ResponseEntity<Void> deleteTeacher(@PathVariable long teacherId) {
-        deleteTeacherUseCase.deleteTeacher(teacherId);
+    @DeleteMapping("/teacher/{id}")
+    public ResponseEntity<Void> deleteTeacher(@PathVariable long id) {
+        deleteTeacherUseCase.deleteTeacher(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping()
+    @PostMapping("/createTeacher")
     public ResponseEntity<CreateResponse> createTeacher(@RequestBody @Valid CreateTeacherRequest request) {
         CreateResponse response = createTeacherUseCase.createTeacher(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateTeacher/{id}")
     public ResponseEntity<Void> updateTeacher(@PathVariable("id") long id,
                                               @RequestBody @Valid UpdateTeacherRequest request) {
         request.setId(id);

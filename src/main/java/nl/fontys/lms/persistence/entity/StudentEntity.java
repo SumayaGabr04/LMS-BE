@@ -8,7 +8,6 @@ import lombok.experimental.SuperBuilder;
 import java.util.ArrayList;
 
 @Data
-//@Builder
 @SuperBuilder
 @NoArgsConstructor
 public class StudentEntity extends UserEntity{
