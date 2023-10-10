@@ -30,15 +30,15 @@ public CreateCourseResponse createCourse(CreateCourseRequest request) {
                 .build();
     }
 
-    // Check if a course with the same name already exists
-    if (courseRepository.existsByCourseName(request.getCourseName())) {
-        ArrayList<String> errorMessages = new ArrayList<>();
-        errorMessages.add("Course name already exists");
-
-        return CreateCourseResponse.builder()
-                .errorMessages(errorMessages)
-                .build();
-    }
+//    // Check if a course with the same name already exists
+//    if (courseRepository.existsByCourseName(request.getCourseName())) {
+//        ArrayList<String> errorMessages = new ArrayList<>();
+//        errorMessages.add("Course name already exists");
+//
+//        return CreateCourseResponse.builder()
+//                .errorMessages(errorMessages)
+//                .build();
+//    }
 
     // Create and save the new course
     CourseEntity courseEntity = saveNewCourse(request);

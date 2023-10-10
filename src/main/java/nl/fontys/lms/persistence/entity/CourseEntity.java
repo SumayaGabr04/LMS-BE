@@ -1,9 +1,6 @@
 package nl.fontys.lms.persistence.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class CourseEntity {
     private Long id;
 

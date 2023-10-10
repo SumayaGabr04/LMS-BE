@@ -40,6 +40,11 @@ public class CreateCourseRequestValidator {
             errorMessages.add("End date must be in the future or the present.");
         }
 
+        if (endDate != null && startDate != null && endDate.before(startDate)) {
+            errorMessages.add("End date must be after the start date.");
+        }
+
+
         return new ValidationResult(errorMessages);
     }
 }
