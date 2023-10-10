@@ -54,4 +54,5 @@ public class StudentsController extends UsersController{
         updateStudentUseCase.updateStudent(request);
         return ResponseEntity.noContent().build();
     }
+    //method for getting the courses they are enrolled into
 }

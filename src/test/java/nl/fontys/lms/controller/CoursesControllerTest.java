@@ -47,7 +47,7 @@ class CoursesControllerTest {
                 .courseMaterials(new ArrayList<>())
                 .build();
 
-        // Mock the behavior of courseRepository.save() to return a course entity
+        // Mock the behavior of courseRepository.save() to return a course entity using  mockito
         Mockito.when(courseRepository.save(Mockito.any(CourseEntity.class)))
                 .thenReturn(newCourse);
 

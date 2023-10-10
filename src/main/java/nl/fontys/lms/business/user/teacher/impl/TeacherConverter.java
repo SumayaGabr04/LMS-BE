@@ -25,9 +25,10 @@ public class TeacherConverter {
                         ? new ArrayList<>(entity.getCoursesTaught().stream()
                         .map(CourseConverter::convert)
                         .collect(Collectors.toList()))
-                        : new ArrayList<>()) // Initialize with an empty list if coursesTaught is null
+                        : new ArrayList<>())
                 .department(entity.getDepartment())
                 .hireDate(entity.getHireDate())
                 .build();
+
     }
 }

@@ -13,9 +13,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/courses")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class CoursesController {
     private final GetCourseUseCase getCourseUseCase;
-    private final GetEnrolledCoursesUseCase getEnrolledCoursesUseCase;
+//    private final GetEnrolledCoursesUseCase getEnrolledCoursesUseCase;
     private final GetAllCoursesUseCase getAllCoursesUseCase;
     private final DeleteCourseUseCase deleteCourseUseCase;
     private final CreateCourseUseCase createCourseUseCase;
@@ -29,13 +30,13 @@ public class CoursesController {
         }
         return ResponseEntity.ok().body(courseOptional.get());
     }
-
-    @GetMapping("enrolled-courses")
-    public ResponseEntity<GetAllEnrolledCoursesResponse> getAllEnrolledCourses(@RequestParam(value = "userId", required = false) int userId){
-        GetAllEnrolledCoursesRequest request = GetAllEnrolledCoursesRequest.builder().userId(userId).build();
-        GetAllEnrolledCoursesResponse response = getEnrolledCoursesUseCase.getCourses(request);
-        return ResponseEntity.ok(response);
-    }
+//move to teachers and students controllers
+//    @GetMapping("enrolled-courses")
+//    public ResponseEntity<GetAllEnrolledCoursesResponse> getAllEnrolledCourses(@RequestParam(value = "userId", required = false) int userId){
+//        GetAllEnrolledCoursesRequest request = GetAllEnrolledCoursesRequest.builder().userId(userId).build();
+//        GetAllEnrolledCoursesResponse response = getEnrolledCoursesUseCase.getCourses(request);
+//        return ResponseEntity.ok(response);
+//    }
     @GetMapping
     public ResponseEntity<GetAllCoursesResponse> getAllCourses() {
         return ResponseEntity.ok(getAllCoursesUseCase.getCourses());

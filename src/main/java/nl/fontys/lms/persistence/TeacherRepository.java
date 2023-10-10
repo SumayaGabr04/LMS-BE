@@ -1,5 +1,6 @@
 package nl.fontys.lms.persistence;
 
+import nl.fontys.lms.persistence.entity.CourseEntity;
 import nl.fontys.lms.persistence.entity.TeacherEntity;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,5 @@ public interface TeacherRepository {
     TeacherEntity save(TeacherEntity teacher);
 
     int count();
+    ArrayList<CourseEntity> getCoursesTaughtByTeacher(long teacherId);
 }

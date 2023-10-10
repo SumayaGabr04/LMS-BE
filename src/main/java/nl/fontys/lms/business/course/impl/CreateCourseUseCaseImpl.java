@@ -43,9 +43,18 @@ public CreateCourseResponse createCourse(CreateCourseRequest request) {
     // Create and save the new course
     CourseEntity courseEntity = saveNewCourse(request);
 
-    return CreateCourseResponse.builder()
-            .courseId(courseEntity.getId())
-            .build();
+    if (courseEntity != null) {
+        return CreateCourseResponse.builder()
+                .courseId(courseEntity.getId())
+                .build();
+    } else {
+        // Handle the case where courseEntity is null
+        // You can return an appropriate error response or throw an exception
+        return CreateCourseResponse.builder()
+                .errorMessages(new ArrayList<>(Collections.singletonList("Failed to create the course")))
+                .build();
+
+    }
 }
     private CourseEntity saveNewCourse(CreateCourseRequest request){
         CourseEntity newCourse = CourseEntity.builder()

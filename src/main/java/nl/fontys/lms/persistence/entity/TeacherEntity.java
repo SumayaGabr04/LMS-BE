@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import nl.fontys.lms.domain.course.Course;
 
 import java.util.ArrayList;
 

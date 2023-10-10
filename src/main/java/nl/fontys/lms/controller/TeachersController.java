@@ -2,6 +2,7 @@ package nl.fontys.lms.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import nl.fontys.lms.business.user.teacher.*;
 import nl.fontys.lms.domain.course.GetAllCoursesResponse;
 import nl.fontys.lms.domain.user.CreateResponse;
@@ -22,6 +23,7 @@ public class TeachersController extends UsersController{
     private final UpdateTeacherUseCase updateTeacherUseCase;
     private final DeleteTeacherUseCase deleteTeacherUseCase;
     private final GetAllTeachersUseCase getAllTeachersUseCase;
+    private final TeacherCourseUseCase getTeacherCoursesUseCase;
 
     @GetMapping("/teacher/{id}")
     public ResponseEntity<GetTeacherResponse> getTeacher(@PathVariable("id") final long id){
@@ -55,5 +57,13 @@ public class TeachersController extends UsersController{
         request.setId(id);
         updateTeacherUseCase.updateTeacher(request);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/teacher/{id}/courses")
+    public ResponseEntity<TeacherCoursesResponse> getTeacherCourses(@PathVariable("id") final long id) {
+        final Optional<TeacherCoursesResponse> coursesOptional = getTeacherCoursesUseCase.getTeacherCourses(id);
+        if (coursesOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(coursesOptional.get());
     }
 }

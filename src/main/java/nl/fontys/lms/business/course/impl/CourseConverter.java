@@ -6,7 +6,7 @@ import nl.fontys.lms.persistence.entity.CourseEntity;
 
 @NoArgsConstructor
 public class CourseConverter {
-    public static Course convert(CourseEntity course){
+    public static Course convert(CourseEntity course) {
         return Course.builder()
                 .id(course.getId())
                 .courseName(course.getCourseName())

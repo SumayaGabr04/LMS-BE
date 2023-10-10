@@ -1,6 +1,7 @@
 package nl.fontys.lms.persistence.impl;
 
 import nl.fontys.lms.persistence.TeacherRepository;
+import nl.fontys.lms.persistence.entity.CourseEntity;
 import nl.fontys.lms.persistence.entity.TeacherEntity;
 import org.springframework.stereotype.Repository;
 
@@ -54,5 +55,14 @@ public class FakeTeacherRepositoryImpl implements TeacherRepository {
     @Override
     public int count() {
         return teachers.size();
+    }
+
+    @Override
+    public ArrayList<CourseEntity> getCoursesTaughtByTeacher(long teacherId) {
+        TeacherEntity teacher = findById(teacherId);
+        if (teacher != null && teacher.getCoursesTaught() != null) {
+            return new ArrayList<>(teacher.getCoursesTaught());
+        }
+        return new ArrayList<>();
     }
 }
