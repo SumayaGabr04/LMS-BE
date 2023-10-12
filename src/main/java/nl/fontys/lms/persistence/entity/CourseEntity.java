@@ -19,5 +19,6 @@ public class CourseEntity {
     private Date startDate;
     private Date endDate;
 
+    // type content
     private ArrayList<String> courseMaterials;
 }
