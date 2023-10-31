@@ -1,4 +1,4 @@
-package nl.fontys.lms.domain.user.teacher;
+package nl.fontys.lms.domain.user.admin;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import nl.fontys.lms.domain.user.UpdateUserRequest;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateTeacherRequest {
+public class UpdateAdminRequest {
     private UpdateUserRequest user;
     private String department;
     private String hireDate;

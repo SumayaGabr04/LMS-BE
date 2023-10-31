@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.exception.EmailAlreadyExists;
 import nl.fontys.lms.business.user.teacher.CreateTeacherUseCase;
 import nl.fontys.lms.domain.user.CreateResponse;
+import nl.fontys.lms.domain.user.CreateUserRequest;
 import nl.fontys.lms.domain.user.teacher.CreateTeacherRequest;
 import nl.fontys.lms.persistence.TeacherRepository;
 import nl.fontys.lms.persistence.entity.TeacherEntity;
@@ -15,11 +16,15 @@ public class CreateTeacherUseCaseImpl implements CreateTeacherUseCase {
     private final TeacherRepository teacherRepository;
 
     @Override
-    public CreateResponse createTeacher(CreateTeacherRequest request) {
-        if (teacherRepository.existsByEmail(request.getUser().getEmail())) {
+    public CreateResponse createTeacher(CreateUserRequest request) {
+        // Map CreateUserRequest to CreateTeacherRequest
+        CreateTeacherRequest teacherRequest = new CreateTeacherRequest();
+        teacherRequest.setUser(request);
+
+        if (teacherRepository.existsByEmail(teacherRequest.getUser().getEmail())) {
             throw new EmailAlreadyExists();
         }
-        TeacherEntity teacherEntity = saveNewTeacher(request);
+        TeacherEntity teacherEntity = saveNewTeacher(teacherRequest);
 
         return CreateResponse.builder()
                 .id(teacherEntity.getTeacherId())

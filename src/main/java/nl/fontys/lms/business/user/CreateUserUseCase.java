@@ -1,8 +1,8 @@
 package nl.fontys.lms.business.user;
 
 import nl.fontys.lms.domain.user.CreateResponse;
-import nl.fontys.lms.domain.user.UserRequest;
+import nl.fontys.lms.domain.user.CreateUserRequest;
 
 public interface CreateUserUseCase {
-    CreateResponse createUser(UserRequest request);
+    CreateResponse createUser(CreateUserRequest request);
 }

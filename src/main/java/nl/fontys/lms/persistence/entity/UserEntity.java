@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 public class UserEntity {
     private Long userId;
 
+    private String role;
     private String firstName;
     private String lastName;
     private String email;

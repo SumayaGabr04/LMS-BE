@@ -6,5 +6,5 @@ import nl.fontys.lms.domain.user.teacher.Teacher;
 import java.util.Optional;
 
 public interface GetTeacherUseCase {
-    Optional<Teacher> getTeacher(Long teacherId);
+    Optional<GetTeacherResponse> getTeacher(Long teacherId);
 }

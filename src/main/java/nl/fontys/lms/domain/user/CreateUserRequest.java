@@ -1,19 +1,17 @@
 package nl.fontys.lms.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
+public class CreateUserRequest {
     @NotBlank
     private String firstName;
 
@@ -26,4 +24,7 @@ public class UserRequest {
 
     @NotBlank
     private String password;
+
+    @NotBlank
+    private String role;
 }

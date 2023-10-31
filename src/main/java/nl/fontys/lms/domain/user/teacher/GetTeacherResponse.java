@@ -3,22 +3,30 @@ package nl.fontys.lms.domain.user.teacher;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import nl.fontys.lms.domain.course.Course;
+import nl.fontys.lms.domain.user.UserResponse;
+import nl.fontys.lms.domain.user.User;
 
-import java.util.List;
+import java.util.Optional;
 
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class GetTeacherResponse {
-//    private Teacher teacher;
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String department;
-    private String hireDate;
-    private List<Course> coursesTaught;
+public class GetTeacherResponse implements UserResponse {
+    private final Optional<Teacher> teacher;
+
+    @Override
+    public Optional<User> getUser() {
+        // Map the Teacher object to a User object or return an empty Optional
+        return teacher.map(teacher -> {
+            // Map Teacher properties to User properties here
+            return new User(
+                    teacher.getId(),
+                    "teacher",
+                    teacher.getFirstName(),
+                    teacher.getLastName(),
+                    teacher.getEmail(),
+                    teacher.getPassword()
+            );
+        });
+    }
 }
