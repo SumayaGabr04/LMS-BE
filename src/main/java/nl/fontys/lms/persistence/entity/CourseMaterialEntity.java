@@ -21,7 +21,7 @@ public class CourseMaterialEntity {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private CourseEntity course;
-
+// change to binary .. figure it out
     @NotBlank
     @Length(min = 2, max = 200)
     @Column(name = "material")

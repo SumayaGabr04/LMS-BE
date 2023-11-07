@@ -55,8 +55,8 @@ sonar {
 	properties {
 		property "sonar.projectKey", "LMS-SQ"
 		property "sonar.projectName", "LMS-SQ"
-		property "sonar.qualitygate.wait", true
-		property "sonar.token", "sqp_591e5b229d89f711b2b3f542170701e2e819426e"
+		property "sonar.qualitygate.wait", false
+		property("sonar.host.url", "http://localhost:9000")
 		property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/test/jacocoTestReport.xml"
 	}
 }
