@@ -26,6 +26,11 @@ build:
       - build
       - .gradle
 
+scan:
+  stage: test
+  script:
+    - Dsonar.token=$SONARQUBE_TOKEN --info
+
 test:
   stage: test
   script: gradle check
