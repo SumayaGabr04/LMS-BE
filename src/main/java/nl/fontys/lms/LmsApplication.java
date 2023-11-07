@@ -2,6 +2,7 @@ package nl.fontys.lms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 		"nl.fontys.lms.domain.user",
 		"nl.fontys.lms.business.exception"
 		})
+@EntityScan(basePackages = "nl.fontys.lms.persistence.entity")
 
 public class LmsApplication {
 

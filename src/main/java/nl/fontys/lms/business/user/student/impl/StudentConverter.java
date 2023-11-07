@@ -12,18 +12,18 @@ import java.util.stream.Collectors;
 public class StudentConverter {
     public static Student convert(StudentEntity entity) {
         return Student.builder()
-                .id(entity.getStudentId())
+                .id(entity.getUserId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
-                .password(entity.getPassword())
+                .passwordHash(entity.getPasswordHash())
+                .passwordSalt(entity.getPasswordSalt())
                 .coursesEnrolled(entity.getCoursesEnrolled() != null
                         ? new ArrayList<>(entity.getCoursesEnrolled().stream()
                         .map(CourseConverter::convert)
                         .collect(Collectors.toList()))
                         : new ArrayList<>()) // Initialize with an empty list if coursesTaught is null
                 .major(entity.getMajor())
-                .enrollmentDate(entity.getEnrollmentDate())
                 .build();
     }
 }

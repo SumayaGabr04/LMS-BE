@@ -14,10 +14,8 @@ public class DeleteTeacherUseCaseImpl implements DeleteTeacherUseCase {
 
     @Override
     public void deleteTeacher(Long teacherId) {
-        TeacherEntity existingTeacher = teacherRepository.findById(teacherId);
-        if (existingTeacher == null) {
-            throw new UserNotFoundException();
-        }
+        TeacherEntity existingTeacher = teacherRepository.findById(teacherId)
+                .orElseThrow(UserNotFoundException::new);
 
         teacherRepository.deleteById(teacherId);
     }

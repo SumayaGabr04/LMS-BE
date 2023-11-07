@@ -21,24 +21,24 @@ public class TeacherCourseUseCaseImpl implements TeacherCourseUseCase {
     private final TeacherRepository teacherRepository;
 
     @Override
-    public Optional<TeacherCoursesResponse> getTeacherCourses(long teacherId) {
-        TeacherEntity teacher = teacherRepository.findById(teacherId);
+    public TeacherCoursesResponse getTeacherCourses(long teacherId) {
+        Optional<TeacherEntity> teacherOptional = teacherRepository.findById(teacherId);
 
-        if (teacher != null) {
-            ArrayList<Course> coursesTaught = teacher.getCoursesTaught().stream()
-                    .map(CourseConverter::convert)
-                    .collect(Collectors.toCollection(ArrayList::new));
+        if (teacherOptional.isPresent()) {
+            TeacherEntity teacher = teacherOptional.get();
+//            ArrayList<Course> coursesTaught = teacher.getCoursesTaught().stream()
+//                    .map(CourseConverter::convert)
+//                    .collect(Collectors.toCollection(ArrayList::new));
 
             // Create a response with the courses taught
-            return Optional.of(TeacherCoursesResponse.builder()
-                    .coursesTaught(coursesTaught)
-                    .build());
+            return TeacherCoursesResponse.builder()
+//                    .coursesTaught(coursesTaught)
+                    .build();
         } else {
             // Return a response with a message if the teacher is not found
-            return Optional.of(TeacherCoursesResponse.builder()
+            return TeacherCoursesResponse.builder()
                     .message("Teacher not found with ID: " + teacherId)
-                    .build());
+                    .build();
         }
     }
-
 }

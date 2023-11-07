@@ -12,8 +12,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class User {
     private Long id;
+    private String role;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
-}
+    private String passwordHash;
+    private String passwordSalt;}

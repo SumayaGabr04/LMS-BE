@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import nl.fontys.lms.domain.user.UserRequest;
+import nl.fontys.lms.domain.user.CreateUserRequest;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateStudentRequest {
-    private UserRequest user;
+    private CreateUserRequest user;
     private String major;
     private String enrollmentDate;
 }

@@ -14,10 +14,8 @@ public class DeleteStudentUseCaseImpl implements DeleteStudentUseCase {
 
     @Override
     public void deleteStudent(Long studentId) {
-        StudentEntity existingStudent = studentRepository.findById(studentId);
-        if (existingStudent == null) {
-            throw new UserNotFoundException();
-        }
+        StudentEntity existingStudent = studentRepository.findById(studentId)
+                .orElseThrow(UserNotFoundException::new);
 
         studentRepository.deleteById(studentId);
     }

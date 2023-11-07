@@ -7,6 +7,8 @@ import nl.fontys.lms.persistence.UserRepository;
 import nl.fontys.lms.persistence.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class DeleteUserUseCaseImpl implements DeleteUserUseCase {
@@ -14,10 +16,13 @@ public class DeleteUserUseCaseImpl implements DeleteUserUseCase {
 
     @Override
     public void deleteUser(Long userId) {
-        UserEntity existingUser = userRepository.findById(userId);
-        if (existingUser == null) {
-            throw new UserNotFoundException(); // Create this exception class
+        Optional<UserEntity> existingUserOptional = userRepository.findById(userId);
+
+        if (existingUserOptional.isEmpty()) {
+            throw new UserNotFoundException();
         }
+
+        UserEntity existingUser = existingUserOptional.get();
 
         userRepository.deleteById(userId);
     }
