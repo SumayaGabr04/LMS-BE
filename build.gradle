@@ -7,7 +7,16 @@ plugins {
 }
 
 test {
-	finalizedBy jacocoTestReport // report is always generated after tests run
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = true
+		csv.required = false
+		html.required = true
+	}
 }
 
 group = 'nl.fontys.lms'
@@ -23,9 +32,17 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.projectlombok:lombok:1.18.28'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-mysql'
+	implementation 'mysql:mysql-connector-java:8.0.33'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'com.h2database:h2'
+
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -39,6 +56,8 @@ sonar {
 		property "sonar.projectKey", "LMS-SQ"
 		property "sonar.projectName", "LMS-SQ"
 		property "sonar.qualitygate.wait", true
+		property "sonar.token", "sqp_591e5b229d89f711b2b3f542170701e2e819426e"
+		property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/test/jacocoTestReport.xml"
 	}
 }
 

@@ -22,23 +22,26 @@ public class GetStudentUseCaseImpl implements GetStudentUseCase {
 
     @Override
     public Optional<Student> getStudent(Long studentId) {
-        StudentEntity studentEntity = studentRepository.findById(studentId);
-        if (studentEntity == null) {
+        Optional<StudentEntity> studentEntityOptional = studentRepository.findById(studentId);
+
+        if (studentEntityOptional.isPresent()) {
+            StudentEntity studentEntity = studentEntityOptional.get();
+
+            // Use the GetEnrolledCoursesUseCase to fetch the list of courses associated with the student
+            GetAllEnrolledCoursesRequest request = GetAllEnrolledCoursesRequest.builder()
+                    .userId(studentId)
+                    .build();
+            GetAllEnrolledCoursesResponse enrolledCoursesResponse = getEnrolledCoursesUseCase.getCourses(request);
+
+            // Convert StudentEntity to Student using the StudentConverter
+            Student student = StudentConverter.convert(studentEntity);
+
+            // Set the courses enrolled by the student
+            student.setCoursesEnrolled(enrolledCoursesResponse.getCourses());
+
+            return Optional.of(student);
+        } else {
             throw new UserNotFoundException();
         }
-
-        // Use the GetEnrolledCoursesUseCase to fetch the list of courses associated with the student
-        GetAllEnrolledCoursesRequest request = GetAllEnrolledCoursesRequest.builder()
-                .userId(studentId)
-                .build();
-        GetAllEnrolledCoursesResponse enrolledCoursesResponse = getEnrolledCoursesUseCase.getCourses(request);
-
-        // Convert StudentEntity to Student using the StudentConverter
-        Student student = StudentConverter.convert(studentEntity);
-
-        // Set the courses enrolled by the student
-        student.setCoursesEnrolled(enrolledCoursesResponse.getCourses());
-
-        return Optional.of(student);
     }
 }

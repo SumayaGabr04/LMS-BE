@@ -14,10 +14,8 @@ public class DeleteAdminUseCaseImpl implements DeleteAdminUseCase {
 
     @Override
     public void deleteAdmin(Long adminId) {
-        AdminEntity existingAdmin = adminRepository.findById(adminId);
-        if (existingAdmin == null) {
-            throw new UserNotFoundException();
-        }
+        AdminEntity existingAdmin = adminRepository.findById(adminId)
+                .orElseThrow(UserNotFoundException::new);
 
         adminRepository.deleteById(adminId);
     }

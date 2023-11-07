@@ -25,7 +25,8 @@ public class GetStudentResponse implements UserResponse {
                     student.getFirstName(),
                     student.getLastName(),
                     student.getEmail(),
-                    student.getPassword()
+                    student.getPasswordHash(),
+                    student.getPasswordSalt()
             );
         });
     }

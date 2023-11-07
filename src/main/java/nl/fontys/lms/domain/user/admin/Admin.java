@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import nl.fontys.lms.domain.user.User;
 
+import java.util.Date;
+
 @Data
 @SuperBuilder
 @AllArgsConstructor
@@ -14,5 +16,5 @@ import nl.fontys.lms.domain.user.User;
 @EqualsAndHashCode(callSuper = true)
 public class Admin extends User {
     private String department;
-    private String hireDate;
+    private Date hireDate;
 }

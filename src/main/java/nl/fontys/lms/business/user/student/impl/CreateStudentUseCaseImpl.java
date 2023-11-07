@@ -31,7 +31,7 @@ public class CreateStudentUseCaseImpl implements CreateStudentUseCase {
         StudentEntity studentEntity = saveNewStudent(studentRequest);
 
         return CreateResponse.builder()
-                .id(studentEntity.getStudentId())
+                .id(studentEntity.getUserId())
                 .build();
     }
 
@@ -40,7 +40,7 @@ public class CreateStudentUseCaseImpl implements CreateStudentUseCase {
                 .firstName(request.getUser().getFirstName())
                 .lastName(request.getUser().getLastName())
                 .email(request.getUser().getEmail())
-                .password(request.getUser().getPassword())
+                .passwordHash(request.getUser().getPassword())
                 .build();
 
         return studentRepository.save(newStudent);

@@ -25,7 +25,8 @@ public class GetAdminResponse implements UserResponse {
                     admin.getFirstName(),
                     admin.getLastName(),
                     admin.getEmail(),
-                    admin.getPassword()
+                    admin.getPasswordHash(),
+                    admin.getPasswordSalt()
             );
         });
     }

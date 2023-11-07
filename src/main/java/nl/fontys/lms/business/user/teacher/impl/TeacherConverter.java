@@ -7,6 +7,8 @@ import nl.fontys.lms.persistence.entity.TeacherEntity;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @NoArgsConstructor
 public class TeacherConverter {
@@ -15,19 +17,23 @@ public class TeacherConverter {
             return null;
         }
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Define the date format you're using
+        String hireDateStr = dateFormat.format(entity.getHireDate());
+
         return Teacher.builder()
-                .id(entity.getTeacherId())
+                .id(entity.getUserId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
-                .password(entity.getPassword())
-                .coursesTaught(entity.getCoursesTaught() != null
-                        ? new ArrayList<>(entity.getCoursesTaught().stream()
-                        .map(CourseConverter::convert)
-                        .collect(Collectors.toList()))
-                        : new ArrayList<>())
+                .passwordHash(entity.getPasswordHash())
+                .passwordSalt(entity.getPasswordSalt())
+//                .coursesTaught(entity.getCoursesTaught() != null
+//                        ? new ArrayList<>(entity.getCoursesTaught().stream()
+//                        .map(CourseConverter::convert)
+//                        .collect(Collectors.toList()))
+//                        : new ArrayList<>())
                 .department(entity.getDepartment())
-                .hireDate(entity.getHireDate())
+                .hireDate(hireDateStr)
                 .build();
 
     }

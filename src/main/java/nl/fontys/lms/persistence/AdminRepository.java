@@ -1,21 +1,14 @@
 package nl.fontys.lms.persistence;
 
 import nl.fontys.lms.persistence.entity.AdminEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
 
-public interface AdminRepository {
-    boolean existsById(long adminId);
-
+public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
     boolean existsByEmail(String email);
-
-    void deleteById(long adminId);
-
-    AdminEntity findById(long adminId);
 
     ArrayList<AdminEntity> findAll();
 
-    AdminEntity save(AdminEntity admin);
-
-    int count();
+    long count();
 }

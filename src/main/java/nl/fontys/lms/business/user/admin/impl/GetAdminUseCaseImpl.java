@@ -20,13 +20,14 @@ public class GetAdminUseCaseImpl implements GetAdminUseCase {
 
     @Override
     public Optional<GetAdminResponse> getAdmin(Long adminId) {
-        AdminEntity adminEntity = adminRepository.findById(adminId);
-        if (adminEntity == null) {
+        Optional<AdminEntity> adminEntityOptional = adminRepository.findById(adminId);
+
+        if (adminEntityOptional.isEmpty()) {
             throw new UserNotFoundException();
         }
 
         // Convert AdminEntity to GetAdminResponse using a converter
-        Admin admin = AdminConverter.convert(adminEntity);
+        Admin admin = AdminConverter.convert(adminEntityOptional.get());
         GetAdminResponse response = new GetAdminResponse(Optional.of(admin));
 
         return Optional.of(response);

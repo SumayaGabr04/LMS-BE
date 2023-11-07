@@ -12,11 +12,12 @@ public class AdminConverter {
         }
 
         return Admin.builder()
-                .id(entity.getAdminId())
+                .id(entity.getUserId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
-                .password(entity.getPassword())
+                .passwordHash(entity.getPasswordHash())
+                .passwordSalt(entity.getPasswordSalt())
                 .department(entity.getDepartment())
                 .hireDate(entity.getHireDate())
                 .build();

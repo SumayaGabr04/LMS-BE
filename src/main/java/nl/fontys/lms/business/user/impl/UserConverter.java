@@ -6,13 +6,24 @@ import nl.fontys.lms.persistence.entity.UserEntity;
 
 @NoArgsConstructor
 public class UserConverter {
+
     public static User convert(UserEntity userEntity) {
         return User.builder()
                 .id(userEntity.getUserId())
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
-                .password(userEntity.getPassword())
+                .passwordHash(userEntity.getPasswordHash()) // Updated to get passwordHash
+                .passwordSalt(userEntity.getPasswordSalt())
                 .build();
     }
+//    public static User convert(UserEntity userEntity) {
+//        return User.builder()
+//                .id(userEntity.getUserId())
+//                .firstName(userEntity.getFirstName())
+//                .lastName(userEntity.getLastName())
+//                .email(userEntity.getEmail())
+//                .password(userEntity.getPassword())
+//                .build();
+//    }
 }

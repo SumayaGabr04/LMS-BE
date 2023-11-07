@@ -16,6 +16,12 @@ before_script:
   - GRADLE_USER_HOME="$(pwd)/.gradle"
   - export GRADLE_USER_HOME
 
+stages:
+  - build
+  - test
+  - deploy
+  - sonar
+
 build:
   stage: build
   script: gradle --build-cache assemble
@@ -40,3 +46,9 @@ deploy:
   stage: deploy
   script: echo "Define your deployment script!"
   environment: production
+
+sonar:
+  stage: sonar
+  script:
+    - gradle sonar
+

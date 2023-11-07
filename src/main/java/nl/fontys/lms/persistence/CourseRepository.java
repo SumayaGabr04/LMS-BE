@@ -1,20 +1,24 @@
 package nl.fontys.lms.persistence;
 
 import nl.fontys.lms.persistence.entity.CourseEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-public interface CourseRepository {
+public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
     boolean existsByCourseName(String courseName);
 
-    boolean existsById(long courseId);
+    Optional<CourseEntity> findById(long courseId);
 
     void deleteById(long courseId);
 
-//    CourseEntity findById(long courseId);
-    Optional<CourseEntity> findById(long courseId);
     ArrayList<CourseEntity> findAll();
-    CourseEntity save(CourseEntity course);
-    int count();
+
+    long count();
+
+    @Query("SELECT c FROM CourseEntity c WHERE c.courseName = :courseName")
+    CourseEntity findCourseByCourseName(@Param("courseName") String courseName);
 }

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import nl.fontys.lms.domain.user.CreateUserRequest;
 import nl.fontys.lms.domain.user.UpdateUserRequest;
 
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,5 +16,5 @@ import nl.fontys.lms.domain.user.UpdateUserRequest;
 public class UpdateAdminRequest {
     private UpdateUserRequest user;
     private String department;
-    private String hireDate;
+    private Date hireDate;
 }

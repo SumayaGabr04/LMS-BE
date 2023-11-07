@@ -17,11 +17,12 @@ public class GetUserUseCaseImpl implements GetUserUseCase {
 
     @Override
     public Optional<User> getUserById(Long userId) {
-        UserEntity userEntity = userRepository.findById(userId);
-        if (userEntity == null) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+
+        if (userEntityOptional == null) {
             throw new UserNotFoundException(); // Create this exception class
         }
 
-        return Optional.of(UserConverter.convert(userEntity));
-    }
+        UserEntity userEntity = userEntityOptional.get();
+        return Optional.of(UserConverter.convert(userEntity));    }
 }

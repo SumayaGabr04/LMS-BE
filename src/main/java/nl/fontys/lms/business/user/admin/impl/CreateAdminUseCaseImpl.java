@@ -10,6 +10,10 @@ import nl.fontys.lms.persistence.AdminRepository;
 import nl.fontys.lms.persistence.entity.AdminEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service
 @AllArgsConstructor
 public class CreateAdminUseCaseImpl implements CreateAdminUseCase {
@@ -27,7 +31,7 @@ public class CreateAdminUseCaseImpl implements CreateAdminUseCase {
         AdminEntity adminEntity = saveNewAdmin(adminRequest);
 
         return CreateResponse.builder()
-                .id(adminEntity.getAdminId())
+                .id(adminEntity.getUserId())
                 .build();
     }
 
@@ -36,11 +40,22 @@ public class CreateAdminUseCaseImpl implements CreateAdminUseCase {
                 .firstName(request.getUser().getFirstName())
                 .lastName(request.getUser().getLastName())
                 .email(request.getUser().getEmail())
-                .password(request.getUser().getPassword())
+                .passwordHash(request.getUser().getPassword())
                 .department(request.getDepartment())
-                .hireDate(request.getHireDate())
+                .hireDate(parseDate(request.getHireDate()))
                 .build();
 
         return adminRepository.save(newAdmin);
+    }
+
+    private Date parseDate(String dateStr) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Update the format as needed
+            return dateFormat.parse(dateStr);
+        } catch (ParseException e) {
+            // Handle the parsing exception
+            e.printStackTrace();
+            return null; // or throw an exception
+        }
     }
 }

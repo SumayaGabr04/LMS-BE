@@ -20,13 +20,14 @@ public class GetTeacherUseCaseImpl implements GetTeacherUseCase {
 
     @Override
     public Optional<GetTeacherResponse> getTeacher(Long teacherId) {
-        TeacherEntity teacherEntity = teacherRepository.findById(teacherId);
-        if (teacherEntity == null) {
+        Optional<TeacherEntity> teacherEntityOptional = teacherRepository.findById(teacherId);
+
+        if (teacherEntityOptional.isEmpty()) {
             throw new UserNotFoundException();
         }
 
         // Convert TeacherEntity to Teacher using a converter
-        Optional<Teacher> teacherOptional = Optional.ofNullable(teacherEntity).map(entity -> TeacherConverter.convert(entity));
+        Optional<Teacher> teacherOptional = teacherEntityOptional.map(entity -> TeacherConverter.convert(entity));
 
         // Create a GetTeacherResponse instance with the Teacher object
         return teacherOptional.map(teacher -> new GetTeacherResponse(Optional.of(teacher)));
