@@ -26,21 +26,6 @@ build:
       - build
       - .gradle
 
-scan:
-  stage: test
-  script:
-    - gradle sonar -Pcoverage -Dsonar.host.url="http://host.docker.internal:9000" -Dsonar.token=$sonar_token --info
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
-    paths:
-      - build
-      - .gradle
-
-  dependencies:
-    - test
-
-
 test:
   stage: test
   script: gradle check
@@ -50,6 +35,20 @@ test:
     paths:
       - build
       - .gradle
+
+scan:
+  stage: test
+  script:
+    - gradle sonar -Pcoverage -Dsonar.host.url="http://host.docker.internal:9000" -Dsonar.token=$SONARQUBE_TOKEN --info
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
+
+  dependencies:
+    - test
 
 deploy:
   stage: deploy
