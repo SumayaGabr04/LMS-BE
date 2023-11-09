@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nl.fontys.lms.business.user.UserRole;
 
 @Data
 @Builder
@@ -26,5 +27,5 @@ public class CreateUserRequest {
     private String password;
 
     @NotBlank
-    private String role;
+    private UserRole role;
 }

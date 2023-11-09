@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -16,11 +17,17 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UsersController {
     private final UserService userService;
-    @PostMapping
-    public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid CreateUserRequest request) {
-        CreateResponse response = userService.createUser(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+//    @PostMapping
+//    public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid CreateUserRequest request) {
+//        CreateResponse response = userService.createUser(request);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//    }
+@PostMapping
+public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid Map<String, Object> requestMap) {
+    CreateUserRequest createUserRequest = userService.mapToCreateUserRequest(requestMap);
+    CreateResponse response = userService.createUser(createUserRequest);
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+}
 
     @GetMapping("/{role}/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("role") String role, @PathVariable("id") long id) {

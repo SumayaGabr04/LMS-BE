@@ -57,7 +57,6 @@ class CreateCourseUseCaseImplTest {
                 java.util.Date.from(LocalDate.of(2023, 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())
         );
 
-
         // Configure the mock to return a CourseEntity when save is called
         CourseEntity savedCourse = CourseEntity.builder()
                 .id(1L) // Set a specific ID for testing

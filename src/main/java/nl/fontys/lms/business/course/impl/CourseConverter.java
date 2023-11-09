@@ -8,7 +8,7 @@ import nl.fontys.lms.persistence.entity.CourseEntity;
 public class CourseConverter {
     public static Course convert(CourseEntity course) {
         return Course.builder()
-//                .id(course.getId())
+                .id(course.getId())
                 .courseName(course.getCourseName())
                 .description(course.getDescription())
                 .instructor(course.getInstructor())

@@ -7,5 +7,6 @@ import nl.fontys.lms.domain.user.student.CreateStudentRequest;
 import org.springframework.stereotype.Service;
 
 public interface CreateStudentUseCase{
-    CreateResponse createStudent(CreateUserRequest request);
+    CreateResponse createStudent(CreateStudentRequest request);
+//    CreateResponse createStudent(CreateUserRequest request);
 }

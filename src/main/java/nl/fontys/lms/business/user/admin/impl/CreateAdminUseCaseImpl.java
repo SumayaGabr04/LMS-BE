@@ -2,12 +2,16 @@ package nl.fontys.lms.business.user.admin.impl;
 
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.exception.EmailAlreadyExists;
+import nl.fontys.lms.business.user.UserRole;
+import nl.fontys.lms.business.user.UserRoleUtil;
 import nl.fontys.lms.business.user.admin.CreateAdminUseCase;
 import nl.fontys.lms.domain.user.CreateResponse;
 import nl.fontys.lms.domain.user.CreateUserRequest;
 import nl.fontys.lms.domain.user.admin.CreateAdminRequest;
 import nl.fontys.lms.persistence.AdminRepository;
 import nl.fontys.lms.persistence.entity.AdminEntity;
+import nl.fontys.lms.security.PasswordUtils;
+import nl.fontys.lms.security.SaltUtils;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -36,16 +40,24 @@ public class CreateAdminUseCaseImpl implements CreateAdminUseCase {
     }
 
     private AdminEntity saveNewAdmin(CreateAdminRequest request) {
-        AdminEntity newAdmin = AdminEntity.builder()
+        // Generate a random salt
+        String salt = SaltUtils.generateSalt();
+
+        // Hash the plain password with the generated salt
+        String hashedPassword = PasswordUtils.hashPassword(request.getUser().getPassword(), salt);
+
+        String role = UserRoleUtil.userRoleToString(UserRole.ADMIN);
+
+        return adminRepository.save(AdminEntity.builder()
                 .firstName(request.getUser().getFirstName())
                 .lastName(request.getUser().getLastName())
                 .email(request.getUser().getEmail())
-                .passwordHash(request.getUser().getPassword())
+                .passwordHash(hashedPassword)
+                .passwordSalt(salt)
                 .department(request.getDepartment())
                 .hireDate(parseDate(request.getHireDate()))
-                .build();
-
-        return adminRepository.save(newAdmin);
+                .role(role)
+                .build());
     }
 
     private Date parseDate(String dateStr) {

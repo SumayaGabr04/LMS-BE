@@ -6,7 +6,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "course_material")
+@Table(name = "course_materials")
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,9 +21,8 @@ public class CourseMaterialEntity {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private CourseEntity course;
-// change to binary .. figure it out
-    @NotBlank
-    @Length(min = 2, max = 200)
-    @Column(name = "material")
-    private String material;
+
+    @Lob // Use @Lob annotation for large binary data
+    @Column(name = "material", columnDefinition = "LONGBLOB") // Specify the column as LONGBLOB
+    private byte[] material;
 }

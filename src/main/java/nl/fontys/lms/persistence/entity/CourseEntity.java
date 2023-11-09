@@ -46,10 +46,10 @@ public class CourseEntity {
     @Column(name = "end_date")
     private Date endDate;
 
-    @ElementCollection
-    @CollectionTable(name = "course_materials", joinColumns = @JoinColumn(name = "course_id"))
-    @Column(name = "material")
-    private ArrayList<String> courseMaterials;
+    @ManyToMany
+    @JoinTable(name = "course_materials", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "material_id"))
+    private List<CourseMaterialEntity> courseMaterials;
+
 
     @ManyToMany
     @JoinTable(name = "course_student",
