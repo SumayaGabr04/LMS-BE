@@ -1,5 +1,6 @@
-package nl.fontys.lms.business.course.impl;
+package nl.fontys.lms.businesss.course;
 
+import nl.fontys.lms.business.course.impl.DeleteCourseUseCaseImpl;
 import nl.fontys.lms.persistence.CourseRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

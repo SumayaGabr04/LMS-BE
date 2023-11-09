@@ -1,5 +1,6 @@
-package nl.fontys.lms.business.course.impl;
+package nl.fontys.lms.businesss.course;
 
+import nl.fontys.lms.business.course.impl.GetCourseUseCaseImpl;
 import nl.fontys.lms.domain.course.Course;
 import nl.fontys.lms.persistence.CourseRepository;
 import nl.fontys.lms.persistence.entity.CourseEntity;

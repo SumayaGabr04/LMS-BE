@@ -1,5 +1,6 @@
-package nl.fontys.lms.business.course.impl;
+package nl.fontys.lms.businesss.course;
 
+import nl.fontys.lms.business.course.impl.CourseConverter;
 import nl.fontys.lms.domain.course.Course;
 import nl.fontys.lms.persistence.entity.CourseEntity;
 import org.junit.jupiter.api.Test;

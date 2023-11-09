@@ -1,4 +1,4 @@
-package nl.fontys.lms.business.course.impl;
+package nl.fontys.lms.businesss.course;
 
 import nl.fontys.lms.business.course.CreateCourseUseCase;
 import nl.fontys.lms.business.course.validations.CreateCourseRequestValidator;

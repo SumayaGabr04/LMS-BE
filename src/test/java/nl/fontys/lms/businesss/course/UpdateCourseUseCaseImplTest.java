@@ -1,4 +1,4 @@
-package nl.fontys.lms.business.course.impl;
+package nl.fontys.lms.businesss.course;
 
 import nl.fontys.lms.business.course.UpdateCourseUseCase;
 import nl.fontys.lms.business.exception.InvalidCourseException;
