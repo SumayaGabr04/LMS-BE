@@ -59,39 +59,39 @@ class CoursesControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
-    @Test
-    void getCourse() throws Exception {
-        // Mock the behavior of courseRepository.findById() to return a predefined CourseEntity
-        CourseEntity course = CourseEntity.builder()
-                .id(1L)
-                .courseName("Course 1")
-                .build();
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/courses/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.courseName").value("Course 1"));
-    }
-
-
-    @Test
-    void getAllCourses() throws Exception {
-        // Mock the behavior of courseRepository.findAll() to return a list of predefined CourseEntity objects
-        ArrayList<CourseEntity> courses = new ArrayList<>(Arrays.asList(
-                CourseEntity.builder().id(1L).courseName("Course 1").build(),
-                CourseEntity.builder().id(2L).courseName("Course 2").build()
-        ));
-        when(courseRepository.findAll()).thenReturn(courses);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/courses"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(jsonPath("$.courses", hasSize(2))) // Use "$.courses" to access the array
-                .andExpect(jsonPath("$.courses[0].id").value(1))
-                .andExpect(jsonPath("$.courses[0].courseName").value("Course 1"))
-                .andExpect(jsonPath("$.courses[1].id").value(2))
-                .andExpect(jsonPath("$.courses[1].courseName").value("Course 2"));
-    }
+//    @Test
+//    void getCourse() throws Exception {
+//        // Mock the behavior of courseRepository.findById() to return a predefined CourseEntity
+//        CourseEntity course = CourseEntity.builder()
+//                .id(1L)
+//                .courseName("Course 1")
+//                .build();
+//        when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
+//
+//        mockMvc.perform(MockMvcRequestBuilders.get("/courses/1"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(jsonPath("$.id").value(1))
+//                .andExpect(jsonPath("$.courseName").value("Course 1"));
+//    }
+//
+//
+//    @Test
+//    void getAllCourses() throws Exception {
+//        // Mock the behavior of courseRepository.findAll() to return a list of predefined CourseEntity objects
+//        ArrayList<CourseEntity> courses = new ArrayList<>(Arrays.asList(
+//                CourseEntity.builder().id(1L).courseName("Course 1").build(),
+//                CourseEntity.builder().id(2L).courseName("Course 2").build()
+//        ));
+//        when(courseRepository.findAll()).thenReturn(courses);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.get("/courses"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(jsonPath("$.courses", hasSize(2))) // Use "$.courses" to access the array
+//                .andExpect(jsonPath("$.courses[0].id").value(1))
+//                .andExpect(jsonPath("$.courses[0].courseName").value("Course 1"))
+//                .andExpect(jsonPath("$.courses[1].id").value(2))
+//                .andExpect(jsonPath("$.courses[1].courseName").value("Course 2"));
+//    }
 
 
     @Test

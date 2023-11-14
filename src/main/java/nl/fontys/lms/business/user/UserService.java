@@ -138,7 +138,8 @@ public class UserService {
 
     public CreateUserRequest mapToCreateUserRequest(Map<String, Object> requestMap) {
         String role = ((String) requestMap.get("role")).toUpperCase();
-        System.out.println("Role: " + role);
+        System.out.println("Role extracted from request: " + role);
+
         switch (role) {
             case "STUDENT":
                 return mapToCreateStudentRequest(requestMap);
@@ -152,7 +153,7 @@ public class UserService {
     }
 
     private CreateStudentRequest mapToCreateStudentRequest(Map<String, Object> requestMap) {
-        // Implement logic to extract and map fields for CreateStudentRequest
+        // Extract and map fields for CreateStudentRequest
         // For example:
         String firstName = (String) requestMap.get("firstName");
         String lastName = (String) requestMap.get("lastName");
@@ -160,6 +161,7 @@ public class UserService {
         String password = (String) requestMap.get("password");
         String major = (String) requestMap.get("major");
 
+        // Create instances directly without casting
         CreateUserRequest userRequest = CreateUserRequest.builder()
                 .firstName(firstName)
                 .lastName(lastName)
@@ -168,11 +170,14 @@ public class UserService {
                 .role(UserRole.STUDENT)
                 .build();
 
-        return CreateStudentRequest.studentBuilder()
+        CreateStudentRequest studentRequest = CreateStudentRequest.studentBuilder()
                 .user(userRequest)
                 .major(major)
                 .build();
+
+        return studentRequest;
     }
+
 
     private CreateTeacherRequest mapToCreateTeacherRequest(Map<String, Object> requestMap) {
         // Implement logic to extract and map fields for CreateTeacherRequest

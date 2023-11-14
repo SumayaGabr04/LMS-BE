@@ -1,6 +1,8 @@
 package nl.fontys.lms.business.course.validations;
 
 import nl.fontys.lms.domain.course.CreateCourseRequest;
+import nl.fontys.lms.persistence.CourseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.regex.Pattern;
 
 @Component
 public class CreateCourseRequestValidator {
+    @Autowired
+    private CourseRepository courseRepository;
     public ValidationResult validateCourseRequest(CreateCourseRequest request) {
         ArrayList<String> errorMessages = new ArrayList<>();
 
@@ -25,6 +29,10 @@ public class CreateCourseRequestValidator {
             // Check course name length
             if (courseName.length() < 3 || courseName.length() > 100) {
                 errorMessages.add("Course name must be between 3 and 100 characters.");
+            }
+            // Check if course name already exists
+            if (courseRepository.existsByCourseName(courseName)) {
+                errorMessages.add("Course already exists.");
             }
         }
 

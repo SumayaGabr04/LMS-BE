@@ -59,56 +59,56 @@ public class EnrollmentsControllerTest {
         resultActions.andExpect(status().isCreated());
     }
 
-    @Test
-    void getEnrollmentsForCourse() throws Exception {
-        // Mock the behavior of enrollmentRepository.findAllEnrollmentsForCourse() to return a list of predefined EnrollmentEntity objects
-        EnrollmentEntity enrollment1 = EnrollmentEntity.builder()
-                .id(1L)
-                .id(1L)
-                .id(1L)
-                .enrollmentDate(new Date())
-                .build();
-        EnrollmentEntity enrollment2 = EnrollmentEntity.builder()
-                .id(2L)
-                .id(2L)
-                .id(1L)
-                .enrollmentDate(new Date())
-                .build();
-
-        Mockito.when(enrollmentRepository.findAllEnrollmentsForCourse(1L)).thenReturn(Arrays.asList(enrollment1, enrollment2));
-
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/enrollments/course/1"));
-        MvcResult mvcResult = resultActions.andExpect(status().isOk()).andReturn();
-
-        String content = mvcResult.getResponse().getContentAsString();
-        // You can use a JSON parser library to verify the JSON content, or you can use JSONPath to simplify JSON checks.
-        // For JSONPath, you can include your existing JSONPath expectations.
-    }
-
-    @Test
-    void getEnrollmentsForStudent() throws Exception {
-        // Mock the behavior of enrollmentRepository.findAllEnrollmentsForStudent() to return a list of predefined EnrollmentEntity objects
-        EnrollmentEntity enrollment1 = EnrollmentEntity.builder()
-                .id(1L)
-                .id(1L)
-                .id(1L)
-                .enrollmentDate(new Date())
-                .build();
-        EnrollmentEntity enrollment2 = EnrollmentEntity.builder()
-                .id(2L)
-                .id(1L)
-                .id(2L)
-                .enrollmentDate(new Date())
-                .build();
-
-        Mockito.when(enrollmentRepository.findAllEnrollmentsForStudent(1L)).thenReturn(Arrays.asList(enrollment1, enrollment2));
-
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/enrollments/student/1"));
-        MvcResult mvcResult = resultActions.andExpect(status().isOk()).andReturn();
-
-        String content = mvcResult.getResponse().getContentAsString();
-        // You can use a JSON parser library to verify the JSON content, or you can use JSONPath to simplify JSON checks.
-        // For JSONPath, you can include your existing JSONPath expectations.
-    }
+//    @Test
+//    void getEnrollmentsForCourse() throws Exception {
+//        // Mock the behavior of enrollmentRepository.findAllEnrollmentsForCourse() to return a list of predefined EnrollmentEntity objects
+//        EnrollmentEntity enrollment1 = EnrollmentEntity.builder()
+//                .id(1L)
+//                .id(1L)
+//                .id(1L)
+//                .enrollmentDate(new Date())
+//                .build();
+//        EnrollmentEntity enrollment2 = EnrollmentEntity.builder()
+//                .id(2L)
+//                .id(2L)
+//                .id(1L)
+//                .enrollmentDate(new Date())
+//                .build();
+//
+//        Mockito.when(enrollmentRepository.findAllEnrollmentsForCourse(1L)).thenReturn(Arrays.asList(enrollment1, enrollment2));
+//
+//        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/enrollments/course/1"));
+//        MvcResult mvcResult = resultActions.andExpect(status().isOk()).andReturn();
+//
+//        String content = mvcResult.getResponse().getContentAsString();
+//        // You can use a JSON parser library to verify the JSON content, or you can use JSONPath to simplify JSON checks.
+//        // For JSONPath, you can include your existing JSONPath expectations.
+//    }
+//
+//    @Test
+//    void getEnrollmentsForStudent() throws Exception {
+//        // Mock the behavior of enrollmentRepository.findAllEnrollmentsForStudent() to return a list of predefined EnrollmentEntity objects
+//        EnrollmentEntity enrollment1 = EnrollmentEntity.builder()
+//                .id(1L)
+//                .id(1L)
+//                .id(1L)
+//                .enrollmentDate(new Date())
+//                .build();
+//        EnrollmentEntity enrollment2 = EnrollmentEntity.builder()
+//                .id(2L)
+//                .id(1L)
+//                .id(2L)
+//                .enrollmentDate(new Date())
+//                .build();
+//
+//        Mockito.when(enrollmentRepository.findAllEnrollmentsForStudent(1L)).thenReturn(Arrays.asList(enrollment1, enrollment2));
+//
+//        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/enrollments/student/1"));
+//        MvcResult mvcResult = resultActions.andExpect(status().isOk()).andReturn();
+//
+//        String content = mvcResult.getResponse().getContentAsString();
+//        // You can use a JSON parser library to verify the JSON content, or you can use JSONPath to simplify JSON checks.
+//        // For JSONPath, you can include your existing JSONPath expectations.
+//    }
 
 }

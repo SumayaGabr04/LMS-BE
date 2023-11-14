@@ -17,11 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UsersController {
     private final UserService userService;
-//    @PostMapping
-//    public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid CreateUserRequest request) {
-//        CreateResponse response = userService.createUser(request);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-//    }
+
 @PostMapping
 public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid Map<String, Object> requestMap) {
     CreateUserRequest createUserRequest = userService.mapToCreateUserRequest(requestMap);
