@@ -23,8 +23,8 @@ public class EnrollmentEntity {
     private CourseEntity course;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private StudentEntity student;
+    @JoinColumn(name = "user_id")
+    private UserEntity student;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "enrollment_date")

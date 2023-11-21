@@ -16,46 +16,37 @@ import java.util.Optional;
 @RequestMapping("/users")
 @AllArgsConstructor
 public class UsersController {
-    private final UserService userService;
+    private final CreateUserUseCase createUserUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
+    private final GetAllUsersUseCase getUsersUseCase;
+    private final GetUserUseCase getUserUseCase;
 
     @PostMapping
-    public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid Map<String, Object> requestMap) {
-        CreateUserRequest createUserRequest = userService.mapToCreateUserRequest(requestMap);
-        CreateResponse response = userService.createUser(createUserRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest request) {
+        CreateUserResponse response = createUserUseCase.createUser(request);
+        CreateUserResponse createResponse = CreateUserResponse.builder().id(response.getId()).build();
+        return new ResponseEntity<>(createResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{role}/{id}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable("role") String role, @PathVariable("id") long id) {
-        Optional<UserResponse> userResponseOptional = userService.getUserById(id, role);
-
-        if (userResponseOptional.isPresent()) {
-            // The Optional contains a value, so unwrap it and return the UserResponse
-            return ResponseEntity.ok(userResponseOptional.get());
-        } else {
-            // Handle the case where the user is not found or the role is invalid
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/{userId}")
+    public ResponseEntity<GetUserResponse> getUser(@PathVariable Long userId) {
+        GetUserRequest request = GetUserRequest.builder().id(userId).build();
+        GetUserResponse response = getUserUseCase.getUserById(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
-    @PutMapping("/{role}/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable("role") String role, @PathVariable("id") long id,
-                                           @RequestBody @Valid UpdateUserRequest request) {
-        request.setRole(role);
-        userService.updateUser(request);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{role}/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("role") String role, @PathVariable("id") long id) {
-        userService.deleteUser(id, role);
-        return ResponseEntity.noContent().build();
-    }
     @GetMapping("/all")
-    public ResponseEntity<ArrayList<User>> getAllUsers() {
-        ArrayList<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<GetAllUsersResponse> getUsers() {
+        ArrayList<User> users = getUsersUseCase.getAllUsers().getUsers();
+        GetAllUsersResponse response = GetAllUsersResponse.builder().users(users).build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<Void> updateUser(@PathVariable Long userId, @RequestBody UpdateUserRequest request) {
+        request.setId(userId);
+        updateUserUseCase.updateUser(request);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -3,7 +3,7 @@ package nl.fontys.lms.business.user.impl;
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.exception.EmailAlreadyExists;
 import nl.fontys.lms.business.user.CreateUserUseCase;
-import nl.fontys.lms.domain.user.CreateResponse;
+import nl.fontys.lms.domain.user.CreateUserResponse;
 import nl.fontys.lms.domain.user.CreateUserRequest;
 import nl.fontys.lms.persistence.UserRepository;
 import nl.fontys.lms.persistence.entity.UserEntity;
@@ -17,13 +17,13 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public CreateResponse createUser(CreateUserRequest request) {
+    public CreateUserResponse createUser(CreateUserRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExists();
         }
         UserEntity userEntity = saveNewUser(request);
 
-        return CreateResponse.builder()
+        return CreateUserResponse.builder()
                 .id(userEntity.getUserId())
                 .build();
     }
@@ -37,20 +37,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .passwordHash(hashedPassword)
-                .passwordSalt(null)  // Assuming no salt is used for encoding in PasswordEncoderConfig
+                .role(request.getRole().getValue())
                 .build();
 
         return userRepository.save(newUser);
     }
-
-//    private UserEntity saveNewUser(CreateUserRequest request) {
-//        UserEntity newUser = UserEntity.builder()
-//                .firstName(request.getFirstName())
-//                .lastName(request.getLastName())
-//                .email(request.getEmail())
-//                .password(request.getPassword())
-//                .build();
-//
-//        return userRepository.save(newUser);
-//    }
 }

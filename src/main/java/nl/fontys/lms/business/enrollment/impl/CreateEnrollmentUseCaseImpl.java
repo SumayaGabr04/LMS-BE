@@ -2,12 +2,13 @@ package nl.fontys.lms.business.enrollment.impl;
 
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.enrollment.CreateEnrollmentUseCase;
+import nl.fontys.lms.business.user.impl.UserConverter;
 import nl.fontys.lms.domain.Enrollment.CreateEnrollmentRequest;
 import nl.fontys.lms.domain.Enrollment.CreateEnrollmentResponse;
+import nl.fontys.lms.domain.user.User;
 import nl.fontys.lms.persistence.EnrollmentRepository;
 import nl.fontys.lms.persistence.entity.CourseEntity;
 import nl.fontys.lms.persistence.entity.EnrollmentEntity;
-import nl.fontys.lms.persistence.entity.StudentEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,15 +49,17 @@ public class CreateEnrollmentUseCaseImpl implements CreateEnrollmentUseCase {
         CourseEntity courseEntity = new CourseEntity();
         courseEntity.setId(request.getCourseId());
 
-        StudentEntity studentEntity = new StudentEntity();
-        studentEntity.setUserId(request.getStudentId());
+        User user = new User();
+        user.setId(request.getStudentId());
+        user.setMajor(request.getMajor());
 
         EnrollmentEntity newEnrollment = EnrollmentEntity.builder()
                 .course(courseEntity)
-                .student(studentEntity)
-                .enrollmentDate(new Date()) // Set the enrollment date to the current date
+                .student(UserConverter.convertToEntity(user)) // Use the UserConverter to convert to UserEntity
+                .enrollmentDate(new Date())
                 .build();
 
         return enrollmentRepository.save(newEnrollment);
     }
+
 }

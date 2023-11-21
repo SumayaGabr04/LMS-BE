@@ -29,7 +29,6 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
         String hashedPassword = passwordEncoder.encode(request.getPassword());
 
         existingUser.setPasswordHash(hashedPassword);
-        existingUser.setPasswordSalt(null);  // Assuming no salt is used for encoding in PasswordEncoderConfig
 
         userRepository.save(existingUser);
     }

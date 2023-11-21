@@ -13,17 +13,14 @@ public class UserConverter {
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
-                .passwordHash(userEntity.getPasswordHash()) // Updated to get passwordHash
-                .passwordSalt(userEntity.getPasswordSalt())
                 .build();
     }
-//    public static User convert(UserEntity userEntity) {
-//        return User.builder()
-//                .id(userEntity.getUserId())
-//                .firstName(userEntity.getFirstName())
-//                .lastName(userEntity.getLastName())
-//                .email(userEntity.getEmail())
-//                .password(userEntity.getPassword())
-//                .build();
-//    }
+    public static UserEntity convertToEntity(User user) {
+        return UserEntity.builder()
+                .userId(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .build();
+    }
 }

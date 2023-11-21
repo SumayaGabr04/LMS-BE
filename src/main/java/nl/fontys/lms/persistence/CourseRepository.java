@@ -20,5 +20,6 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
     long count();
 
     @Query("SELECT c FROM CourseEntity c WHERE c.courseName = :courseName")
-    CourseEntity findCourseByCourseName(@Param("courseName") String courseName);
+    Optional<CourseEntity> findCourseByCourseName(@Param("courseName") String courseName);
+
 }

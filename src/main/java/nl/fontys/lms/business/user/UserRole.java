@@ -1,5 +1,8 @@
 package nl.fontys.lms.business.user;
 
 public enum UserRole {
-    STUDENT, TEACHER, ADMIN
+    STUDENT, TEACHER, ADMIN;
+    public String getValue() {
+        return this.name(); // Or use any other logic to get the string representation
+    }
 }
