@@ -3,6 +3,7 @@ package nl.fontys.lms.businesss.course;
 import nl.fontys.lms.business.course.CreateCourseUseCase;
 import nl.fontys.lms.business.course.validations.CreateCourseRequestValidator;
 import nl.fontys.lms.business.course.validations.ValidationResult;
+import nl.fontys.lms.configuration.security.token.impl.AccessTokenEncoderDecoderImpl;
 import nl.fontys.lms.domain.course.CreateCourseRequest;
 import nl.fontys.lms.domain.course.CreateCourseResponse;
 import nl.fontys.lms.persistence.CourseRepository;
@@ -37,6 +38,10 @@ class CreateCourseUseCaseImplTest {
 
     @Mock
     private CreateCourseRequestValidator fakeRequestValidator;
+
+    @MockBean
+    private AccessTokenEncoderDecoderImpl accessTokenEncoderDecoder;
+
 
     @BeforeEach
     void setUp() {

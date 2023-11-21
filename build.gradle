@@ -60,6 +60,7 @@ sonar {
 		property "sonar.qualitygate.wait", false
 		property("sonar.host.url", "http://localhost:9000")
 //		property "sonar.coverage.jacoco.xmlReportPaths", "${rootDir}/build/reports/jacoco/test/jacocoTestReport.xml"
+		property "sonar.coverage.exclusions", "**/src/main/java/nl/fontys/lms/configuration/**"
 	}
 }
 
