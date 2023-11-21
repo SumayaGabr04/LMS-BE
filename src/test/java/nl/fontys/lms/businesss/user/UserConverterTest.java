@@ -17,7 +17,6 @@ public class UserConverterTest {
         userEntity.setLastName("Doe");
         userEntity.setEmail("john.doe@example.com");
         userEntity.setPasswordHash("hashedPassword");
-        userEntity.setPasswordSalt("passwordSalt");
 
         // Act
         User convertedUser = UserConverter.convert(userEntity);
@@ -27,7 +26,6 @@ public class UserConverterTest {
         assertEquals(userEntity.getFirstName(), convertedUser.getFirstName());
         assertEquals(userEntity.getLastName(), convertedUser.getLastName());
         assertEquals(userEntity.getEmail(), convertedUser.getEmail());
-        assertEquals(userEntity.getPasswordHash(), convertedUser.getPasswordHash());
-        assertEquals(userEntity.getPasswordSalt(), convertedUser.getPasswordSalt());
+//        assertEquals(userEntity.getPasswordHash(), convertedUser.getPasswordHash());
     }
 }

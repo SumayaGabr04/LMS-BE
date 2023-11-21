@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
+
 @Data
 @SuperBuilder
 @AllArgsConstructor
@@ -16,5 +18,10 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String passwordHash;
-    private String passwordSalt;}
+
+    // Additional fields for students
+    private String major;
+    // Additional fields for teachers
+    private String department;
+    private Date hireDate;
+}

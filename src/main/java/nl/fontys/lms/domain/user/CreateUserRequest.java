@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import nl.fontys.lms.business.user.UserRole;
 
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -28,4 +30,11 @@ public class CreateUserRequest {
 
     @NotBlank
     private UserRole role;
+
+    // Additional fields for students
+    private String major;
+
+    // Additional fields for teachers
+    private String department;
+    private Date hireDate;
 }

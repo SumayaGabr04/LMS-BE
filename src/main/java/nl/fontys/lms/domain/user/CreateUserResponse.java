@@ -1,4 +1,4 @@
-package nl.fontys.lms.domain.user.admin;
+package nl.fontys.lms.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAdminRequest {
-    private long adminId;
+public class CreateUserResponse {
+    private long id;
 }

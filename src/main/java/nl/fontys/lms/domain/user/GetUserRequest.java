@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateResponse {
-    private long id;
+public class GetUserRequest {
+    private Long id;
 }

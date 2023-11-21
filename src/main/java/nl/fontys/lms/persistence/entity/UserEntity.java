@@ -7,12 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "user")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Builder
 @Data
-@SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +34,17 @@ public class UserEntity {
     private String email;
 
     @Column(name = "password_hash", nullable = false)
-    private String passwordHash;  // Store the hashed password
+    private String passwordHash;
 
-    @Column(name = "password_salt", nullable = false)
-    private String passwordSalt;  // Store the salt
+    // Fields specific to student
+    @Column(name = "major")
+    private String major;
+
+    // Fields specific to teacher/admin
+    @Column(name = "department")
+    private String department;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "hire_date")
+    private Date hireDate;
 }

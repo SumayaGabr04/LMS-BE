@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,11 +30,11 @@ public class CourseRepositoryTest {
         courseRepository.save(course);
 
         // Find the course by course name
-        CourseEntity foundCourse = courseRepository.findCourseByCourseName("Test Course");
+        CourseEntity foundCourse = courseRepository.findCourseByCourseName("Test Course")
+                .orElseThrow(() -> new RuntimeException("Course not found"));
 
-        // Verify that the course was found
-        assertNotNull(foundCourse);
         assertEquals("Test Course", foundCourse.getCourseName());
+
     }
 
     @Test

@@ -50,11 +50,8 @@ public class CourseEntity {
     @JoinTable(name = "course_materials", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "material_id"))
     private List<CourseMaterialEntity> courseMaterials;
 
-
     @ManyToMany
-    @JoinTable(name = "course_student",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id")
-    )
-    private List<StudentEntity> enrolledStudents;
+    @JoinTable(name = "enrollment", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<UserEntity> enrolledStudents;
+
 }
