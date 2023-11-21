@@ -6,14 +6,14 @@ import nl.fontys.lms.business.user.UpdateUserUseCase;
 import nl.fontys.lms.domain.user.UpdateUserRequest;
 import nl.fontys.lms.persistence.UserRepository;
 import nl.fontys.lms.persistence.entity.UserEntity;
-import nl.fontys.lms.security.PasswordUtils;
-import nl.fontys.lms.security.SaltUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void updateUser(UpdateUserRequest request) {
@@ -26,11 +26,10 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
         existingUser.setEmail(request.getEmail());
 
         // Hash and salt the new password
-        String salt = SaltUtils.generateSalt();
-        String hashedPassword = PasswordUtils.hashPassword(request.getPassword(), salt);
+        String hashedPassword = passwordEncoder.encode(request.getPassword());
 
         existingUser.setPasswordHash(hashedPassword);
-        existingUser.setPasswordSalt(salt);
+        existingUser.setPasswordSalt(null);  // Assuming no salt is used for encoding in PasswordEncoderConfig
 
         userRepository.save(existingUser);
     }

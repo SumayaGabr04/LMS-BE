@@ -1,0 +1,58 @@
+package nl.fontys.lms.business.login.impl;
+
+import lombok.AllArgsConstructor;
+import nl.fontys.lms.business.exception.InvalidCredentialsException;
+import nl.fontys.lms.business.login.LoginUseCase;
+import nl.fontys.lms.configuration.security.token.AccessTokenEncoder;
+import nl.fontys.lms.configuration.security.token.impl.AccessTokenImpl;
+import nl.fontys.lms.domain.login.LoginRequest;
+import nl.fontys.lms.domain.login.LoginResponse;
+import nl.fontys.lms.persistence.UserRepository;
+import nl.fontys.lms.persistence.entity.StudentEntity;
+import nl.fontys.lms.persistence.entity.UserEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
+
+@Service
+@AllArgsConstructor
+public class LoginUseCaseImpl implements LoginUseCase {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AccessTokenEncoder accessTokenEncoder;
+
+    @Override
+    public LoginResponse login(LoginRequest loginRequest) {
+        UserEntity user = getUserByEmail(loginRequest.getEmail());
+        validateCredentials(loginRequest.getPassword(), user.getPasswordHash());
+        String accessToken = generateAccessToken(user);
+        return LoginResponse.builder().accessToken(accessToken).build();
+    }
+
+    private UserEntity getUserByEmail(String email) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new InvalidCredentialsException();
+        }
+        return user;
+    }
+
+    private void validateCredentials(String rawPassword, String encodedPassword) {
+        if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
+            throw new InvalidCredentialsException();
+        }
+    }
+
+    private String generateAccessToken(UserEntity user) {
+        Long studentId = isStudent(user) ? ((StudentEntity) user).getUserId() : null;
+        List<String> roles = List.of(user.getRole());
+
+        return accessTokenEncoder.encode(
+                new AccessTokenImpl(user.getEmail(), studentId, roles));
+    }
+    private boolean isStudent(UserEntity user) {
+        return "STUDENT".equals(user.getRole());
+    }
+}

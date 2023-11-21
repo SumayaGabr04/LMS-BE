@@ -47,7 +47,6 @@ public class UserService {
 
     public CreateResponse createUser(CreateUserRequest request) {
 
-
         if (request.getRole() == UserRole.STUDENT) {
             System.out.println("Role: " + request.getRole());
             CreateStudentRequest studentRequest = CreateStudentRequest.fromUserRequestAndMajor(request, ((CreateStudentRequest) request).getMajor());
@@ -161,7 +160,6 @@ public class UserService {
         String password = (String) requestMap.get("password");
         String major = (String) requestMap.get("major");
 
-        // Create instances directly without casting
         CreateUserRequest userRequest = CreateUserRequest.builder()
                 .firstName(firstName)
                 .lastName(lastName)
@@ -170,14 +168,13 @@ public class UserService {
                 .role(UserRole.STUDENT)
                 .build();
 
-        CreateStudentRequest studentRequest = CreateStudentRequest.studentBuilder()
+        CreateStudentRequest studentRequest = CreateStudentRequest.studentBuilderMethod()
                 .user(userRequest)
                 .major(major)
                 .build();
 
         return studentRequest;
     }
-
 
     private CreateTeacherRequest mapToCreateTeacherRequest(Map<String, Object> requestMap) {
         // Implement logic to extract and map fields for CreateTeacherRequest

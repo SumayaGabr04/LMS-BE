@@ -3,12 +3,11 @@ package nl.fontys.lms.business.user.admin.impl;
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.exception.UserNotFoundException;
 import nl.fontys.lms.business.user.admin.UpdateAdminUseCase;
-import nl.fontys.lms.security.PasswordUtils;
-import nl.fontys.lms.security.SaltUtils;
 import nl.fontys.lms.domain.user.UpdateUserRequest;
 import nl.fontys.lms.domain.user.admin.UpdateAdminRequest;
 import nl.fontys.lms.persistence.AdminRepository;
 import nl.fontys.lms.persistence.entity.AdminEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,6 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UpdateAdminUseCaseImpl implements UpdateAdminUseCase {
     private final AdminRepository adminRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void updateAdmin(UpdateUserRequest request) {
@@ -33,12 +33,12 @@ public class UpdateAdminUseCaseImpl implements UpdateAdminUseCase {
             existingAdmin.setFirstName(adminRequest.getUser().getFirstName());
             existingAdmin.setLastName(adminRequest.getUser().getLastName());
             existingAdmin.setEmail(adminRequest.getUser().getEmail());
+
             // Hash and salt the new password
-            String salt = SaltUtils.generateSalt();
-            String hashedPassword = PasswordUtils.hashPassword(request.getPassword(), salt);
+            String hashedPassword = passwordEncoder.encode(request.getPassword());
 
             existingAdmin.setPasswordHash(hashedPassword);
-            existingAdmin.setPasswordSalt(salt);
+            existingAdmin.setPasswordSalt(null);  // Assuming no salt is used for encoding in PasswordEncoderConfig
 
             existingAdmin.setDepartment(adminRequest.getDepartment());
             existingAdmin.setHireDate(adminRequest.getHireDate());

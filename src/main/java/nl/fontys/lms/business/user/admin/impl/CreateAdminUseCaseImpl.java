@@ -10,8 +10,7 @@ import nl.fontys.lms.domain.user.CreateUserRequest;
 import nl.fontys.lms.domain.user.admin.CreateAdminRequest;
 import nl.fontys.lms.persistence.AdminRepository;
 import nl.fontys.lms.persistence.entity.AdminEntity;
-import nl.fontys.lms.security.PasswordUtils;
-import nl.fontys.lms.security.SaltUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -22,6 +21,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class CreateAdminUseCaseImpl implements CreateAdminUseCase {
     private final AdminRepository adminRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public CreateResponse createAdmin(CreateUserRequest request) {
@@ -38,13 +38,8 @@ public class CreateAdminUseCaseImpl implements CreateAdminUseCase {
                 .id(adminEntity.getUserId())
                 .build();
     }
-
     private AdminEntity saveNewAdmin(CreateAdminRequest request) {
-        // Generate a random salt
-        String salt = SaltUtils.generateSalt();
-
-        // Hash the plain password with the generated salt
-        String hashedPassword = PasswordUtils.hashPassword(request.getUser().getPassword(), salt);
+        String encodedPassword = passwordEncoder.encode(request.getUser().getPassword());
 
         String role = UserRoleUtil.userRoleToString(UserRole.ADMIN);
 
@@ -52,8 +47,7 @@ public class CreateAdminUseCaseImpl implements CreateAdminUseCase {
                 .firstName(request.getUser().getFirstName())
                 .lastName(request.getUser().getLastName())
                 .email(request.getUser().getEmail())
-                .passwordHash(hashedPassword)
-                .passwordSalt(salt)
+                .passwordHash(encodedPassword)
                 .department(request.getDepartment())
                 .hireDate(parseDate(request.getHireDate()))
                 .role(role)

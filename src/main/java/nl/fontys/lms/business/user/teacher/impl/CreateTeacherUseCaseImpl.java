@@ -1,7 +1,6 @@
 package nl.fontys.lms.business.user.teacher.impl;
 
 import lombok.AllArgsConstructor;
-import nl.fontys.lms.business.exception.EmailAlreadyExists;
 import nl.fontys.lms.business.user.UserRole;
 import nl.fontys.lms.business.user.UserRoleUtil;
 import nl.fontys.lms.business.user.teacher.CreateTeacherUseCase;
@@ -10,8 +9,7 @@ import nl.fontys.lms.domain.user.CreateUserRequest;
 import nl.fontys.lms.domain.user.teacher.CreateTeacherRequest;
 import nl.fontys.lms.persistence.TeacherRepository;
 import nl.fontys.lms.persistence.entity.TeacherEntity;
-import nl.fontys.lms.security.PasswordUtils;
-import nl.fontys.lms.security.SaltUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -22,6 +20,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class CreateTeacherUseCaseImpl implements CreateTeacherUseCase {
     private final TeacherRepository teacherRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public CreateResponse createTeacher(CreateUserRequest request) {
@@ -34,16 +33,12 @@ public class CreateTeacherUseCaseImpl implements CreateTeacherUseCase {
         }
     }
 
+
     private CreateResponse createTeacherWithDepartment(CreateUserRequest request) {
-        // Generate a random salt
-        String salt = SaltUtils.generateSalt();
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-        // Hash the plain password with the generated salt
-        String hashedPassword = PasswordUtils.hashPassword(request.getPassword(), salt);
-
-        // Create a new TeacherEntity with a department
         CreateTeacherRequest teacherRequest = (CreateTeacherRequest) request;
-        TeacherEntity teacherEntity = saveNewTeacher(teacherRequest, hashedPassword, salt);
+        TeacherEntity teacherEntity = saveNewTeacher(teacherRequest, encodedPassword);
 
         return CreateResponse.builder()
                 .id(teacherEntity.getUserId())
@@ -51,29 +46,22 @@ public class CreateTeacherUseCaseImpl implements CreateTeacherUseCase {
     }
 
     private CreateResponse createTeacherWithoutDepartment(CreateUserRequest request) {
-        // Generate a random salt
-        String salt = SaltUtils.generateSalt();
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-        // Hash the plain password with the generated salt
-        String hashedPassword = PasswordUtils.hashPassword(request.getPassword(), salt);
-
-        // Create a new TeacherEntity without a department
-        TeacherEntity teacherEntity = saveNewTeacher((CreateTeacherRequest) request, null, salt);
-
+        TeacherEntity teacherEntity = saveNewTeacher((CreateTeacherRequest) request, encodedPassword);
 
         return CreateResponse.builder()
                 .id(teacherEntity.getUserId())
                 .build();
     }
 
-    private TeacherEntity saveNewTeacher(CreateTeacherRequest request, String hashedPassword, String salt) {
+    private TeacherEntity saveNewTeacher(CreateTeacherRequest request, String hashedPassword) {
         String role = UserRoleUtil.userRoleToString(UserRole.TEACHER);
         return teacherRepository.save(TeacherEntity.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .passwordHash(hashedPassword)
-                .passwordSalt(salt)
                 .department(request.getDepartment())
                 .hireDate(parseDate(request.getHireDate()))
                 .role(role)

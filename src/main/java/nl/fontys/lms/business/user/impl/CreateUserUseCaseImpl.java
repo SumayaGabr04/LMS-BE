@@ -7,14 +7,14 @@ import nl.fontys.lms.domain.user.CreateResponse;
 import nl.fontys.lms.domain.user.CreateUserRequest;
 import nl.fontys.lms.persistence.UserRepository;
 import nl.fontys.lms.persistence.entity.UserEntity;
-import nl.fontys.lms.security.PasswordUtils;
-import nl.fontys.lms.security.SaltUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public CreateResponse createUser(CreateUserRequest request) {
@@ -29,20 +29,19 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     }
 
     private UserEntity saveNewUser(CreateUserRequest request) {
-        String salt = SaltUtils.generateSalt();
-        String hashedPassword = PasswordUtils.hashPassword(request.getPassword(), salt);
+        // Hash and salt the password before saving
+        String hashedPassword = passwordEncoder.encode(request.getPassword());
 
         UserEntity newUser = UserEntity.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .passwordHash(hashedPassword)
-                .passwordSalt(salt)
+                .passwordSalt(null)  // Assuming no salt is used for encoding in PasswordEncoderConfig
                 .build();
 
         return userRepository.save(newUser);
     }
-
 
 //    private UserEntity saveNewUser(CreateUserRequest request) {
 //        UserEntity newUser = UserEntity.builder()

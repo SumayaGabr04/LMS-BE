@@ -7,25 +7,23 @@ import lombok.NoArgsConstructor;
 import nl.fontys.lms.domain.user.CreateUserRequest;
 
 @Data
-@Builder(builderMethodName = "studentBuilder")
+@Builder(builderMethodName = "studentBuilderMethod")
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateStudentRequest extends CreateUserRequest{
     private CreateUserRequest user;
     private String major;
-//    private String enrollmentDate;
-public static CreateStudentRequest fromUserRequestAndMajor(CreateUserRequest userRequest, String major) {
-    return CreateStudentRequest.studentBuilder()
-            .user(CreateUserRequest.builder()
-                    .firstName(userRequest.getFirstName())
-                    .lastName(userRequest.getLastName())
-                    .email(userRequest.getEmail())
-                    .password(userRequest.getPassword())
-                    .role(userRequest.getRole())
-                    .build())
-            .major(major)
-            .build();
-}
 
-
+    public static CreateStudentRequest fromUserRequestAndMajor(CreateUserRequest userRequest, String major) {
+        return CreateStudentRequest.studentBuilderMethod()
+                .user(CreateUserRequest.builder()
+                        .firstName(userRequest.getFirstName())
+                        .lastName(userRequest.getLastName())
+                        .email(userRequest.getEmail())
+                        .password(userRequest.getPassword())
+                        .role(userRequest.getRole())
+                        .build())
+                .major(major)
+                .build();
+    }
 }

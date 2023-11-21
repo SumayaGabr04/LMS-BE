@@ -18,12 +18,12 @@ import java.util.Optional;
 public class UsersController {
     private final UserService userService;
 
-@PostMapping
-public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid Map<String, Object> requestMap) {
-    CreateUserRequest createUserRequest = userService.mapToCreateUserRequest(requestMap);
-    CreateResponse response = userService.createUser(createUserRequest);
-    return ResponseEntity.status(HttpStatus.CREATED).body(response);
-}
+    @PostMapping
+    public ResponseEntity<CreateResponse> createUser(@RequestBody @Valid Map<String, Object> requestMap) {
+        CreateUserRequest createUserRequest = userService.mapToCreateUserRequest(requestMap);
+        CreateResponse response = userService.createUser(createUserRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 
     @GetMapping("/{role}/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("role") String role, @PathVariable("id") long id) {
