@@ -1,5 +1,6 @@
 package nl.fontys.lms.business.course.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.course.GetAllCoursesUseCase;
 import nl.fontys.lms.domain.course.Course;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
     private final CourseRepository courseRepository;
 
+    @Transactional
     @Override
     public GetAllCoursesResponse getCourses() {
         ArrayList<Course> courses = courseRepository.findAll()

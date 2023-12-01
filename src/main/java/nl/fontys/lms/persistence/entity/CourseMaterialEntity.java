@@ -23,6 +23,6 @@ public class CourseMaterialEntity {
     private CourseEntity course;
 
     @Lob // Use @Lob annotation for large binary data
-    @Column(name = "material", columnDefinition = "LONGBLOB") // Specify the column as LONGBLOB
+    @Column(name = "material", columnDefinition = "LONGBLOB", nullable = true) // Specify the column as LONGBLOB
     private byte[] material;
 }

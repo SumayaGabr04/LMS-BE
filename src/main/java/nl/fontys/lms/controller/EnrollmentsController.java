@@ -1,5 +1,6 @@
 package nl.fontys.lms.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.enrollment.CreateEnrollmentUseCase;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/enrollments")
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173")
+@RolesAllowed("STUDENT")
 public class EnrollmentsController {
     private final CreateEnrollmentUseCase createEnrollmentUseCase;
     private final GetEnrollmentsForCourseUseCase getEnrollmentsForCourseUseCase;

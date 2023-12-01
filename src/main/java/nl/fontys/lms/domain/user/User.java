@@ -19,9 +19,9 @@ public class User {
     private String lastName;
     private String email;
 
-    // Additional fields for students
-    private String major;
-    // Additional fields for teachers
-    private String department;
-    private Date hireDate;
+//    // Additional fields for students
+//    private String major;
+//    // Additional fields for teachers
+//    private String department;
+//    private Date hireDate;
 }

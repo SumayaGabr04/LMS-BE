@@ -46,12 +46,12 @@ public class CourseEntity {
     @Column(name = "end_date")
     private Date endDate;
 
-    @ManyToMany
-    @JoinTable(name = "course_materials", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "material_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "course_materials", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "material_id", nullable = true))
     private List<CourseMaterialEntity> courseMaterials;
 
-    @ManyToMany
-    @JoinTable(name = "enrollment", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "enrollment", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "user_id", nullable = true))
     private List<UserEntity> enrolledStudents;
 
 }

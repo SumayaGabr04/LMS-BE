@@ -6,6 +6,5 @@ CREATE TABLE course (
     enrollment_capacity INT NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    material VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 );

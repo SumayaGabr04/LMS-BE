@@ -17,6 +17,6 @@ public class CreateEnrollmentRequest {
     @NotNull
     private Long studentId;
 
-    @NotNull
-    private String major;
+//    @NotNull
+//    private String major;
 }

@@ -1,5 +1,6 @@
 package nl.fontys.lms.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.course.*;
@@ -21,6 +22,7 @@ public class CoursesController {
     private final CreateCourseUseCase createCourseUseCase;
     private final UpdateCourseUseCase updateCourseUseCase;
 
+    @RolesAllowed({"ADMIN", "TEACHER", "STUDENT"})
     @GetMapping("{id}")
     public ResponseEntity<Course> getCourse(@PathVariable("id") final long id){
         final Optional<Course> courseOptional = getCourseUseCase.getCourse(id);
@@ -29,21 +31,24 @@ public class CoursesController {
         }
         return ResponseEntity.ok().body(courseOptional.get());
     }
+    @RolesAllowed({"ADMIN", "TEACHER", "STUDENT"})
     @GetMapping
     public ResponseEntity<GetAllCoursesResponse> getAllCourses() {
         return ResponseEntity.ok(getAllCoursesUseCase.getCourses());
     }
-
+    @RolesAllowed("ADMIN")
     @DeleteMapping("{courseId}")
     public ResponseEntity<Void> deleteCourse(@PathVariable int courseId) {
         deleteCourseUseCase.deleteCourse(courseId);
         return ResponseEntity.noContent().build();
     }
+    @RolesAllowed("ADMIN")
     @PostMapping()
     public ResponseEntity<CreateCourseResponse> createCourse(@RequestBody @Valid CreateCourseRequest request) {
         CreateCourseResponse response = createCourseUseCase.createCourse(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+    @RolesAllowed("ADMIN")
     @PutMapping("{id}")
     public ResponseEntity<Void> updateCourse(@PathVariable("id") long id,
                                             @RequestBody @Valid UpdateCourseRequest request) {

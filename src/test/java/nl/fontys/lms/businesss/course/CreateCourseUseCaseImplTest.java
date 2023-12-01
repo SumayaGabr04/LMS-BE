@@ -22,10 +22,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -49,7 +50,6 @@ class CreateCourseUseCaseImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    //to be fixed
     @Test
     public void testCreateCourse_Success() {
         // Arrange

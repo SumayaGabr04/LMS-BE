@@ -33,7 +33,7 @@ public CreateCourseResponse createCourse(CreateCourseRequest request) {
 //    // Check if a course with the same name already exists
 //    if (courseRepository.existsByCourseName(request.getCourseName())) {
 //        ArrayList<String> errorMessages = new ArrayList<>();
-//        errorMessages.add("Course name already exists");
+//        errorMessages.add("Course already exists");
 //
 //        return CreateCourseResponse.builder()
 //                .errorMessages(errorMessages)
@@ -56,7 +56,7 @@ public CreateCourseResponse createCourse(CreateCourseRequest request) {
 
     }
 }
-    private CourseEntity saveNewCourse(CreateCourseRequest request){
+    private CourseEntity saveNewCourse(CreateCourseRequest request) {
         CourseEntity newCourse = CourseEntity.builder()
                 .courseName(request.getCourseName())
                 .description(request.getDescription())
@@ -64,6 +64,8 @@ public CreateCourseResponse createCourse(CreateCourseRequest request) {
                 .enrollmentCapacity(request.getEnrollmentCapacity())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
+                .courseMaterials(new ArrayList<>())
+                .enrolledStudents(new ArrayList<>())
                 .build();
 
         return courseRepository.save(newCourse);
