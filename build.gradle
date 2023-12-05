@@ -58,7 +58,6 @@ sonar {
 		property "sonar.projectKey", "LMS-SQ"
 		property "sonar.projectName", "LMS-SQ"
 		property "sonar.qualitygate.wait", false
-		property "sonar.host.url", "http://localhost:9000"
 		property "sonar.coverage.exclusions", "**/src/main/java/nl/fontys/lms/configuration/**,**/src/main/java/nl/fontys/lms/persistence/**,**/src/main/java/nl/fontys/lms/controller/**,**/src/main/java/nl/fontys/lms/domain/**"
 	}
 }
