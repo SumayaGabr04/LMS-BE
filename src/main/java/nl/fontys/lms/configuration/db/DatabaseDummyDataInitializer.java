@@ -22,9 +22,9 @@
 //
 //        // Dummy student
 //        CreateUserRequest studentRequest = CreateUserRequest.builder()
-//                .firstName("Student")
-//                .lastName("One")
-//                .email("student@example.com")
+//                .firstName("Sumaya")
+//                .lastName("Gabr")
+//                .email("sumaya@example.com")
 //                .password("password123")
 //                .role(UserRole.STUDENT)
 //                .build();

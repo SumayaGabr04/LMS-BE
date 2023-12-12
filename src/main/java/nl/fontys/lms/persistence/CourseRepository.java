@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
@@ -34,4 +35,11 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
             "GROUP BY c.id, c.courseName")
     ArrayList<Object[]> getTotalStudentsPerCourse();
 
+    @Query("SELECT c.courseName, COUNT(e.student.userId) AS totalStudents " +
+            "FROM CourseEntity c " +
+            "LEFT JOIN EnrollmentEntity e ON c.id = e.course.id " +
+            "GROUP BY c.courseName " +
+            "ORDER BY totalStudents DESC " +
+            "LIMIT 3")
+    List<Object[]> getTop3CoursesWithMostEnrolledStudents();
 }

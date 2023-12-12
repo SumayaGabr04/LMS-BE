@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,6 +22,7 @@ public class CoursesController {
     private final DeleteCourseUseCase deleteCourseUseCase;
     private final CreateCourseUseCase createCourseUseCase;
     private final UpdateCourseUseCase updateCourseUseCase;
+    private final TopCoursesUseCase topCoursesUseCase;
 
     @RolesAllowed({"ADMIN", "TEACHER", "STUDENT"})
     @GetMapping("{id}")
@@ -61,5 +63,11 @@ public class CoursesController {
     @GetMapping("/search")
     public ResponseEntity<GetAllCoursesResponse> searchCourses(@RequestParam String searchTerm) {
         return ResponseEntity.ok(getAllCoursesUseCase.searchCourses(searchTerm));
+    }
+
+    @RolesAllowed({"ADMIN", "TEACHER", "STUDENT"})
+    @GetMapping("/top3enrolled")
+    public ResponseEntity<List<Object[]>> getTop3CoursesWithMostEnrolledStudents() {
+        return ResponseEntity.ok(topCoursesUseCase.getTop3CoursesWithMostEnrolledStudents());
     }
 }
