@@ -72,4 +72,37 @@ public class GetAllCoursesUseCaseImplTest {
         assertEquals(expectedCourses, response.getCourses());
         verify(courseRepository, times(1)).findAll();
     }
+
+    @Test
+    void testSearchCourses() {
+        // Arrange
+        String searchTerm = "Course 1";
+        CourseEntity courseEntity1 = CourseEntity.builder()
+                .id(1L)
+                .courseName("Course 1")
+                .description("Description for Course 1")
+                .instructor("Instructor 1")
+                .enrollmentCapacity(30)
+                .startDate(new Date())
+                .endDate(new Date())
+                .courseMaterials(new ArrayList<>())
+                .enrolledStudents(new ArrayList<>())
+                .build();
+
+        ArrayList<CourseEntity> mockCourseEntities = new ArrayList<>(Arrays.asList(courseEntity1));
+
+        // Mocking searchCourses
+        when(courseRepository.searchCourses(searchTerm)).thenReturn(mockCourseEntities);
+
+        // Act
+        GetAllCoursesResponse response = getAllCoursesUseCase.searchCourses(searchTerm);
+
+        // Assert
+        List<Course> expectedCourses = mockCourseEntities.stream()
+                .map(CourseConverter::convert)
+                .collect(Collectors.toList());
+
+        assertEquals(expectedCourses, response.getCourses());
+        verify(courseRepository, times(1)).searchCourses(searchTerm);
+    }
 }

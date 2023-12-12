@@ -26,4 +26,14 @@ public class GetAllCoursesUseCaseImpl implements GetAllCoursesUseCase {
 
         return GetAllCoursesResponse.builder().courses(courses).build();
     }
+
+    @Transactional
+    public GetAllCoursesResponse searchCourses(String searchTerm) {
+        ArrayList<Course> courses = courseRepository.searchCourses(searchTerm)
+                .stream()
+                .map(CourseConverter::convert)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return GetAllCoursesResponse.builder().courses(courses).build();
+    }
 }

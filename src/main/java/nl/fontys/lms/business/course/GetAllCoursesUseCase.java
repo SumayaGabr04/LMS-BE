@@ -4,4 +4,5 @@ import nl.fontys.lms.domain.course.GetAllCoursesResponse;
 
 public interface GetAllCoursesUseCase {
     GetAllCoursesResponse getCourses();
+    GetAllCoursesResponse searchCourses(String searchTerm);
 }

@@ -51,7 +51,6 @@ public class CreateEnrollmentUseCaseImpl implements CreateEnrollmentUseCase {
 
         User user = new User();
         user.setId(request.getStudentId());
-//        user.setMajor(request.getMajor());
 
         EnrollmentEntity newEnrollment = EnrollmentEntity.builder()
                 .course(courseEntity)

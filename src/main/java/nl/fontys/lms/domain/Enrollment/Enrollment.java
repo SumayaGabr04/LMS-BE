@@ -14,7 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class Enrollment {
     private Long enrollmentId;
-//    private Long courseId;
     private Course course;
     private Long studentId;
     private Date enrollmentDate;

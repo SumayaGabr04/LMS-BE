@@ -1,7 +1,6 @@
 package nl.fontys.lms.business.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.server.ResponseStatusException;
 
 public class CourseNameAlreadyExists extends ResponseStatusException {

@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Material {
     long id;
-    //TODO: implement domain object
 }

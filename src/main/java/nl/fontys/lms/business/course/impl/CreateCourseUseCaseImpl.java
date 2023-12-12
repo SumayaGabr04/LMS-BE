@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.course.CreateCourseUseCase;
 import nl.fontys.lms.business.course.validations.CreateCourseRequestValidator;
 import nl.fontys.lms.business.course.validations.ValidationResult;
-import nl.fontys.lms.business.exception.CourseNameAlreadyExists;
 import nl.fontys.lms.domain.course.CreateCourseRequest;
 import nl.fontys.lms.domain.course.CreateCourseResponse;
 import nl.fontys.lms.persistence.CourseRepository;
@@ -29,16 +28,6 @@ public CreateCourseResponse createCourse(CreateCourseRequest request) {
                 .errorMessages(validationResult.getErrorMessages())
                 .build();
     }
-
-//    // Check if a course with the same name already exists
-//    if (courseRepository.existsByCourseName(request.getCourseName())) {
-//        ArrayList<String> errorMessages = new ArrayList<>();
-//        errorMessages.add("Course already exists");
-//
-//        return CreateCourseResponse.builder()
-//                .errorMessages(errorMessages)
-//                .build();
-//    }
 
     // Create and save the new course
     CourseEntity courseEntity = saveNewCourse(request);

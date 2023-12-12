@@ -22,4 +22,16 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
     @Query("SELECT c FROM CourseEntity c WHERE c.courseName = :courseName")
     Optional<CourseEntity> findCourseByCourseName(@Param("courseName") String courseName);
 
+    @Query("SELECT c FROM CourseEntity c WHERE " +
+            "LOWER(c.courseName) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(c.instructor) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(c.description) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
+    ArrayList<CourseEntity> searchCourses(@Param("searchTerm") String searchTerm);
+
+    @Query("SELECT c.id, c.courseName, COUNT(e.student.userId) AS totalStudents " +
+            "FROM CourseEntity c " +
+            "LEFT JOIN EnrollmentEntity e ON c.id = e.course.id " +
+            "GROUP BY c.id, c.courseName")
+    ArrayList<Object[]> getTotalStudentsPerCourse();
+
 }

@@ -56,4 +56,10 @@ public class CoursesController {
         updateCourseUseCase.UpdateCourse(request);
         return ResponseEntity.noContent().build();
     }
+
+    @RolesAllowed({"ADMIN", "TEACHER", "STUDENT"})
+    @GetMapping("/search")
+    public ResponseEntity<GetAllCoursesResponse> searchCourses(@RequestParam String searchTerm) {
+        return ResponseEntity.ok(getAllCoursesUseCase.searchCourses(searchTerm));
+    }
 }

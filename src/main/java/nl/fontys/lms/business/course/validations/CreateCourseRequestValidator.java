@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
 
 @Component
 public class CreateCourseRequestValidator {
+
     @Autowired
     private CourseRepository courseRepository;
     public ValidationResult validateCourseRequest(CreateCourseRequest request) {

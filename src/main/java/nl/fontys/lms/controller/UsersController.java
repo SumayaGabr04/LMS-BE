@@ -1,6 +1,5 @@
 package nl.fontys.lms.controller;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.user.*;
 import nl.fontys.lms.domain.user.*;
@@ -9,12 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class UsersController {
     private final CreateUserUseCase createUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
