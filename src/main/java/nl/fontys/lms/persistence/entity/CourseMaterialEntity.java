@@ -22,6 +22,11 @@ public class CourseMaterialEntity {
     @JoinColumn(name = "course_id")
     private CourseEntity course;
 
+    @NotBlank
+    @Length(max = 255)
+    @Column(name = "name")
+    private String name;
+
     @Lob // Use @Lob annotation for large binary data
     @Column(name = "material", columnDefinition = "LONGBLOB", nullable = true) // Specify the column as LONGBLOB
     private byte[] material;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nl.fontys.lms.domain.material.Material;
 import nl.fontys.lms.domain.user.User;
 
 import java.util.ArrayList;
@@ -21,6 +22,6 @@ public class Course {
     private int enrollmentCapacity;
     private Date startDate;
     private Date endDate;
-    private ArrayList<String> courseMaterials;
+    private ArrayList<Material> courseMaterials;
     private ArrayList<User> enrolledStudents;
 }

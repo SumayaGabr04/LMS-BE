@@ -1,9 +1,10 @@
 package nl.fontys.lms.business.course.impl;
 
 import lombok.NoArgsConstructor;
-import nl.fontys.lms.business.material.MaterialConverter;
+import nl.fontys.lms.business.material.impl.MaterialConverter;
 import nl.fontys.lms.business.user.impl.UserConverter;
 import nl.fontys.lms.domain.course.Course;
+import nl.fontys.lms.domain.material.Material;
 import nl.fontys.lms.domain.user.User;
 import nl.fontys.lms.persistence.entity.CourseEntity;
 import nl.fontys.lms.persistence.entity.CourseMaterialEntity;
@@ -30,15 +31,16 @@ public class CourseConverter {
     }
 
 
-    private static List<String> convertMaterials(List<CourseMaterialEntity> courseMaterials) {
+    private static List<Material> convertMaterials(List<CourseMaterialEntity> courseMaterials) {
         if (courseMaterials == null) {
             return List.of();
         }
 
         return courseMaterials.stream()
-                .map(MaterialConverter::convertMaterial) // Assuming convertMaterial returns String
+                .map(MaterialConverter::convertMaterial)
                 .collect(Collectors.toList());
     }
+
 
     private static List<User> convertUsers(List<UserEntity> enrolledStudents) {
         if (enrolledStudents == null) {

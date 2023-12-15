@@ -43,6 +43,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/enrollments/**").permitAll()
                                 .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/chat/**").permitAll()
+                                .requestMatchers("/material/**").permitAll()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()
                                 .anyRequest().authenticated()
                 )

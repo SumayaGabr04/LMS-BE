@@ -47,7 +47,7 @@ public class CourseEntity {
     private Date endDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "course_materials", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "material_id", nullable = true))
+    @JoinTable(name = "course_materials", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "id", nullable = true))
     private List<CourseMaterialEntity> courseMaterials;
 
     @ManyToMany(fetch = FetchType.EAGER)

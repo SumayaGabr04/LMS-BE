@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseMaterialRepository extends JpaRepository<CourseMaterialEntity, Long> {
     // Custom query to find course materials by course ID
@@ -21,4 +22,6 @@ public interface CourseMaterialRepository extends JpaRepository<CourseMaterialEn
 
     // Custom query to find course materials by course end date
     List<CourseMaterialEntity> findByCourseEndDateBefore(Date endDate);
+
+    Optional<CourseMaterialEntity> getMaterialById(Long materialId);
 }
