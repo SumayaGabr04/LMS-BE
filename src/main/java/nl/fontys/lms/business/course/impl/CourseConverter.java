@@ -1,6 +1,5 @@
 package nl.fontys.lms.business.course.impl;
 
-import lombok.NoArgsConstructor;
 import nl.fontys.lms.business.material.impl.MaterialConverter;
 import nl.fontys.lms.business.user.impl.UserConverter;
 import nl.fontys.lms.domain.course.Course;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
 public class CourseConverter {
     public static Course convert(CourseEntity course) {
         return Course.builder()
@@ -38,7 +36,7 @@ public class CourseConverter {
 
         return courseMaterials.stream()
                 .map(MaterialConverter::convertMaterial)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
@@ -49,6 +47,6 @@ public class CourseConverter {
 
         return enrolledStudents.stream()
                 .map(UserConverter::convert)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

@@ -1,4 +1,4 @@
-package nl.fontys.lms.domain.Enrollment;
+package nl.fontys.lms.domain.enrollment;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

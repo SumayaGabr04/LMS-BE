@@ -55,7 +55,7 @@ public class CoursesController {
     public ResponseEntity<Void> updateCourse(@PathVariable("id") long id,
                                             @RequestBody @Valid UpdateCourseRequest request) {
         request.setId(id);
-        updateCourseUseCase.UpdateCourse(request);
+        updateCourseUseCase.updateCourse(request);
         return ResponseEntity.noContent().build();
     }
 
@@ -67,7 +67,9 @@ public class CoursesController {
 
     @RolesAllowed({"ADMIN", "TEACHER", "STUDENT"})
     @GetMapping("/top3enrolled")
-    public ResponseEntity<List<Object[]>> getTop3CoursesWithMostEnrolledStudents() {
-        return ResponseEntity.ok(topCoursesUseCase.getTop3CoursesWithMostEnrolledStudents());
+    public ResponseEntity<TopCoursesResponse> getTop3CoursesWithMostEnrolledStudents() {
+        TopCoursesResponse topCoursesResponse = topCoursesUseCase.getTop3CoursesWithMostEnrolledStudents();
+        System.out.println("Top 3 Courses Response: " + topCoursesResponse);
+        return ResponseEntity.ok(topCoursesResponse);
     }
 }

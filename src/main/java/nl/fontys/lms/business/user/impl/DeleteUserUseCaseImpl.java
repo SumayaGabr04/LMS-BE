@@ -22,7 +22,6 @@ public class DeleteUserUseCaseImpl implements DeleteUserUseCase {
             throw new UserNotFoundException();
         }
 
-        UserEntity existingUser = existingUserOptional.get();
 
         userRepository.deleteById(userId);
     }

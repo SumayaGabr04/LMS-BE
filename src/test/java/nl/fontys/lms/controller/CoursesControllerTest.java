@@ -108,7 +108,7 @@ class CoursesControllerTest {
 
         ResponseEntity<Void> response = coursesController.updateCourse(courseId, request);
 
-        verify(updateCourseUseCase).UpdateCourse(request);
+        verify(updateCourseUseCase).updateCourse(request);
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 

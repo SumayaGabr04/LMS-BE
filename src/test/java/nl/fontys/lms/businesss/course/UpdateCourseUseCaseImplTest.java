@@ -54,7 +54,7 @@ public class UpdateCourseUseCaseImplTest {
         when(courseRepository.findById(request.getId())).thenReturn(Optional.of(existingCourse));
 
         // Act
-        updateCourseUseCase.UpdateCourse(request);
+        updateCourseUseCase.updateCourse(request);
 
         // Assert
         verify(courseRepository, times(1)).findById(request.getId());
@@ -78,7 +78,7 @@ public class UpdateCourseUseCaseImplTest {
         when(courseRepository.findById(request.getId())).thenReturn(Optional.empty());
 
         // Act and Assert
-        assertThrows(InvalidCourseException.class, () -> updateCourseUseCase.UpdateCourse(request));
+        assertThrows(InvalidCourseException.class, () -> updateCourseUseCase.updateCourse(request));
 
         // Verify that save is not called
         verify(courseRepository, never()).save(any());

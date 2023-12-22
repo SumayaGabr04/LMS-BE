@@ -2,13 +2,12 @@ package nl.fontys.lms.business.enrollment.impl;
 
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.enrollment.GetEnrollmentsForCourseUseCase;
-import nl.fontys.lms.domain.Enrollment.Enrollment;
-import nl.fontys.lms.domain.Enrollment.GetEnrollmentsForCourseResponse;
+import nl.fontys.lms.domain.enrollment.Enrollment;
+import nl.fontys.lms.domain.enrollment.GetEnrollmentsForCourseResponse;
 import nl.fontys.lms.persistence.EnrollmentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +20,7 @@ public class GetEnrollmentsForCourseUseCaseImpl implements GetEnrollmentsForCour
                 .findAllEnrollmentsForCourse(courseId)
                 .stream()
                 .map(EnrollmentConverter::convert)
-                .collect(Collectors.toList());
+                .toList();
 
         return GetEnrollmentsForCourseResponse.builder()
                 .courseId(courseId)

@@ -1,7 +1,9 @@
 package nl.fontys.lms.business.course;
 
+import nl.fontys.lms.domain.course.TopCoursesResponse;
+
 import java.util.List;
 
 public interface TopCoursesUseCase {
-    List<Object[]> getTop3CoursesWithMostEnrolledStudents();
+    TopCoursesResponse getTop3CoursesWithMostEnrolledStudents();
 }

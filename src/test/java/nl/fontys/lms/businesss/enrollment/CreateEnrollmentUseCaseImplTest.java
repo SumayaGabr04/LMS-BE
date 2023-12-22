@@ -1,20 +1,18 @@
 package nl.fontys.lms.businesss.enrollment;
 
 import nl.fontys.lms.business.enrollment.impl.CreateEnrollmentUseCaseImpl;
-import nl.fontys.lms.domain.Enrollment.CreateEnrollmentRequest;
-import nl.fontys.lms.domain.Enrollment.CreateEnrollmentResponse;
+import nl.fontys.lms.domain.enrollment.CreateEnrollmentRequest;
+import nl.fontys.lms.domain.enrollment.CreateEnrollmentResponse;
 import nl.fontys.lms.persistence.EnrollmentRepository;
 import nl.fontys.lms.persistence.entity.EnrollmentEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

@@ -5,15 +5,11 @@ import nl.fontys.lms.persistence.entity.CourseMaterialEntity;
 
 import java.util.Base64;
 
-public class MaterialConverter { //TODO; finish implementation
+public class MaterialConverter {
     public static Material convertMaterial(CourseMaterialEntity courseMaterial) {
         if (courseMaterial == null || courseMaterial.getMaterial() == null) {
             return null; // or throw an exception, depending on your requirements
         }
-
-        // Your logic for converting the material byte[] to a string
-        // For example, you can convert it to Base64
-        String materialString = Base64.getEncoder().encodeToString(courseMaterial.getMaterial());
 
         // Create and return a Material object
         return new Material(courseMaterial.getId(), courseMaterial.getCourse().getId(), courseMaterial.getName(), null);
@@ -21,7 +17,7 @@ public class MaterialConverter { //TODO; finish implementation
 
     public static byte[] convertMaterial(String material) {
         if (material == null) {
-            return null; // or throw an exception, depending on your requirements
+            return new byte[0]; // or throw an exception, depending on your requirements
         }
 
         // Your logic for converting the material string to a byte[]

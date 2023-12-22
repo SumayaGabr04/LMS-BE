@@ -1,13 +1,12 @@
 package nl.fontys.lms.businesss.enrollment;
 
 import nl.fontys.lms.business.enrollment.impl.EnrollmentConverter;
-import nl.fontys.lms.domain.Enrollment.Enrollment;
+import nl.fontys.lms.domain.enrollment.Enrollment;
 import nl.fontys.lms.persistence.entity.CourseEntity;
 import nl.fontys.lms.persistence.entity.EnrollmentEntity;
 import nl.fontys.lms.persistence.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

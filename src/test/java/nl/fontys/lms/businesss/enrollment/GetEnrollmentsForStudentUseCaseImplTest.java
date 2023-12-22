@@ -2,8 +2,8 @@ package nl.fontys.lms.businesss.enrollment;
 
 import nl.fontys.lms.business.enrollment.impl.EnrollmentConverter;
 import nl.fontys.lms.business.enrollment.impl.GetEnrollmentsForStudentUseCaseImpl;
-import nl.fontys.lms.domain.Enrollment.Enrollment;
-import nl.fontys.lms.domain.Enrollment.GetEnrollmentsForStudentResponse;
+import nl.fontys.lms.domain.enrollment.Enrollment;
+import nl.fontys.lms.domain.enrollment.GetEnrollmentsForStudentResponse;
 import nl.fontys.lms.persistence.EnrollmentRepository;
 import nl.fontys.lms.persistence.entity.CourseEntity;
 import nl.fontys.lms.persistence.entity.EnrollmentEntity;
