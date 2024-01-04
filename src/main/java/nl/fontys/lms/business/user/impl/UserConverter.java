@@ -8,6 +8,10 @@ import nl.fontys.lms.persistence.entity.UserEntity;
 public class UserConverter {
 
     public static User convert(UserEntity userEntity) {
+        if (userEntity == null) {
+            return null;
+        }
+
         return User.builder()
                 .id(userEntity.getUserId())
                 .firstName(userEntity.getFirstName())
@@ -16,6 +20,11 @@ public class UserConverter {
                 .build();
     }
     public static UserEntity convertToEntity(User user) {
+        if (user == null) {
+            return null;
+        }
+
+
         return UserEntity.builder()
                 .userId(user.getId())
                 .firstName(user.getFirstName())

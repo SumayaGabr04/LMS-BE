@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 		"nl.fontys.lms.persistence.entity",
 		"nl.fontys.lms.controller",
 		"nl.fontys.lms.business",
+		"nl.fontys.lms.business.enrollment.impl",
 		"nl.fontys.lms.business.user",
 		"nl.fontys.lms.business.user.impl",
 		"nl.fontys.lms.business.material",

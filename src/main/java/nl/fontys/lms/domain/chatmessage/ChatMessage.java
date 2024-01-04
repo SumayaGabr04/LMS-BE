@@ -1,4 +1,4 @@
-package nl.fontys.lms.domain.chatMessage;
+package nl.fontys.lms.domain.chatmessage;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

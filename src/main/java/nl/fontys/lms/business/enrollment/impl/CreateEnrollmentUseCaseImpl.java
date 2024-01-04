@@ -6,6 +6,7 @@ import nl.fontys.lms.business.user.impl.UserConverter;
 import nl.fontys.lms.domain.enrollment.CreateEnrollmentRequest;
 import nl.fontys.lms.domain.enrollment.CreateEnrollmentResponse;
 import nl.fontys.lms.domain.user.User;
+import nl.fontys.lms.persistence.CourseRepository;
 import nl.fontys.lms.persistence.EnrollmentRepository;
 import nl.fontys.lms.persistence.entity.CourseEntity;
 import nl.fontys.lms.persistence.entity.EnrollmentEntity;
@@ -19,21 +20,30 @@ import java.util.Date;
 @AllArgsConstructor
 public class CreateEnrollmentUseCaseImpl implements CreateEnrollmentUseCase {
     private final EnrollmentRepository enrollmentRepository;
+    private final CourseRepository courseRepository;
+
 
     @Override
     public CreateEnrollmentResponse createEnrollment(CreateEnrollmentRequest request) {
-        // Check if the student is already enrolled in the course
-        boolean isStudentEnrolled = enrollmentRepository.isStudentEnrolledInCourse(request.getStudentId(), request.getCourseId());
+        boolean isStudentEnrolled = isStudentAlreadyEnrolled(request);
         if (isStudentEnrolled) {
             return CreateEnrollmentResponse.builder()
                     .errorMessages(new ArrayList<>(Collections.singletonList("Student is already enrolled in the course")))
                     .build();
         }
 
+        boolean isAtFullCapacity = isCourseAtFullCapacity(request);
+        if (isAtFullCapacity) {
+            return CreateEnrollmentResponse.builder()
+                    .errorMessages(new ArrayList<>(Collections.singletonList("Course is at full capacity")))
+                    .build();
+        }
+
+
         // Create and save the new enrollment
         EnrollmentEntity enrollmentEntity = saveNewEnrollment(request);
 
-        if (enrollmentEntity != null) {
+        if (enrollmentEntity != null && enrollmentEntity.getId() != null) {
             return CreateEnrollmentResponse.builder()
                     .enrollmentId(enrollmentEntity.getId())
                     .build();
@@ -59,6 +69,15 @@ public class CreateEnrollmentUseCaseImpl implements CreateEnrollmentUseCase {
                 .build();
 
         return enrollmentRepository.save(newEnrollment);
+    }
+    private boolean isStudentAlreadyEnrolled(CreateEnrollmentRequest request) {
+        return enrollmentRepository.isStudentEnrolledInCourse(request.getStudentId(), request.getCourseId());
+    }
+
+    private boolean isCourseAtFullCapacity(CreateEnrollmentRequest request) {
+        int currentEnrollmentCount = enrollmentRepository.getEnrollmentCountForCourse(request.getCourseId());
+        int courseCapacity = courseRepository.getCourseCapacity(request.getCourseId());
+        return currentEnrollmentCount >= courseCapacity;
     }
 
 }

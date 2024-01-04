@@ -42,4 +42,7 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
             "ORDER BY totalStudents DESC " +
             "LIMIT 3")
     List<Object[]> getTop3CoursesWithMostEnrolledStudents();
+
+    @Query("SELECT c.enrollmentCapacity FROM CourseEntity c WHERE c.id = :courseId")
+    int getCourseCapacity(Long courseId);
 }

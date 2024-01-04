@@ -1,6 +1,8 @@
 package nl.fontys.lms.businesss.course;
 
 import nl.fontys.lms.business.course.impl.TopCoursesUseCaseImpl;
+import nl.fontys.lms.domain.course.TopCourseInfo;
+import nl.fontys.lms.domain.course.TopCoursesResponse;
 import nl.fontys.lms.persistence.CourseRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,12 +36,16 @@ public class TopCoursesUseCaseImplTest {
         when(courseRepository.getTop3CoursesWithMostEnrolledStudents()).thenReturn(mockResult);
 
         // Call the use case method
-        List<Object[]> result = topCoursesUseCase.getTop3CoursesWithMostEnrolledStudents();
+        TopCoursesResponse result = topCoursesUseCase.getTop3CoursesWithMostEnrolledStudents();
 
         // Verify the result
-        assertEquals(3, result.size());
-        assertEquals(course1, result.get(0));
-        assertEquals(course2, result.get(1));
-        assertEquals(course3, result.get(2));
+        List<TopCourseInfo> expectedTopCourses = Arrays.asList(
+                new TopCourseInfo("CourseA", 10L),
+                new TopCourseInfo("CourseB", 8L),
+                new TopCourseInfo("CourseC", 6L)
+        );
+
+        assertEquals(expectedTopCourses, result.getTopCourses());
     }
+
 }

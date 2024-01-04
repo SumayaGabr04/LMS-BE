@@ -1,4 +1,4 @@
-package nl.fontys.lms.configuration.webSocket;
+package nl.fontys.lms.configuration.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -19,5 +19,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws").setAllowedOrigins("http://localhost:5173").withSockJS();
     }
-
 }

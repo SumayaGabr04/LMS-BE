@@ -32,7 +32,7 @@ public CreateCourseResponse createCourse(CreateCourseRequest request) {
     // Create and save the new course
     CourseEntity courseEntity = saveNewCourse(request);
 
-    if (courseEntity != null) {
+    if (courseEntity != null && courseEntity.getId() != null) {
         return CreateCourseResponse.builder()
                 .courseId(courseEntity.getId())
                 .build();

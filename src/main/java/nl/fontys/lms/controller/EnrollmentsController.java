@@ -4,6 +4,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import nl.fontys.lms.business.enrollment.CreateEnrollmentUseCase;
+import nl.fontys.lms.business.enrollment.DeleteEnrollmentUseCase;
 import nl.fontys.lms.business.enrollment.GetEnrollmentsForCourseUseCase;
 import nl.fontys.lms.business.enrollment.GetEnrollmentsForStudentUseCase;
 import nl.fontys.lms.domain.enrollment.CreateEnrollmentRequest;
@@ -23,6 +24,7 @@ public class EnrollmentsController {
     private final CreateEnrollmentUseCase createEnrollmentUseCase;
     private final GetEnrollmentsForCourseUseCase getEnrollmentsForCourseUseCase;
     private final GetEnrollmentsForStudentUseCase getEnrollmentsForStudentUseCase;
+    private final DeleteEnrollmentUseCase deleteEnrollmentUseCase;
 
     @PostMapping()
     public ResponseEntity<CreateEnrollmentResponse> createEnrollment(@RequestBody @Valid CreateEnrollmentRequest request) {
@@ -40,5 +42,11 @@ public class EnrollmentsController {
     public ResponseEntity<GetEnrollmentsForStudentResponse> getEnrollmentsForStudent(@PathVariable("studentId") Long studentId) {
         GetEnrollmentsForStudentResponse response = getEnrollmentsForStudentUseCase.getEnrollmentsForStudent(studentId);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{enrollmentId}")
+    public ResponseEntity<Void> deleteEnrollment(@PathVariable("enrollmentId") Long enrollmentId) {
+        deleteEnrollmentUseCase.deleteEnrollment(enrollmentId);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,5 +1,6 @@
 package nl.fontys.lms.persistence;
 
+import org.springframework.transaction.annotation.Transactional;
 import nl.fontys.lms.persistence.entity.EnrollmentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,11 @@ public interface EnrollmentRepository extends JpaRepository<EnrollmentEntity, Lo
 
     @Query("SELECT e.enrollmentDate FROM EnrollmentEntity e WHERE e.student.userId = :studentId AND e.course.id = :courseId")
     Date getEnrollmentDateForStudentInCourse(Long studentId, Long courseId);
+
+    @Query("SELECT COUNT(e) FROM EnrollmentEntity e WHERE e.course.id = :courseId")
+    int getEnrollmentCountForCourse(Long courseId);
+
+    @Transactional
+    void deleteById(Long enrollmentId);
+
 }
