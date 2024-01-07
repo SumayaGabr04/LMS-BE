@@ -10,6 +10,6 @@ import java.util.Optional;
 @Builder
 @AllArgsConstructor
 public class GetUserResponse {
-    private final Optional<User> user;
+    private User user;
 
 }

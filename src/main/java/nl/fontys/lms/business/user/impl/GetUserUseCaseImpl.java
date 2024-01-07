@@ -28,6 +28,6 @@ public class GetUserUseCaseImpl implements GetUserUseCase {
         UserEntity userEntity = userEntityOptional.get();
         User user = UserConverter.convert(userEntity);
 
-        return GetUserResponse.builder().user(Optional.of(user)).build();
+        return GetUserResponse.builder().user(user).build();
     }
 }
