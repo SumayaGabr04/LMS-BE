@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class GetAllCoursesUseCaseImplTest {
+class GetAllCoursesUseCaseImplTest {
     @Mock
     private CourseRepository courseRepository;
 

@@ -13,9 +13,9 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class MaterialConverterTest {
+class MaterialConverterTest {
     @Test
-    public void testConvertMaterial() throws IOException {
+    void testConvertMaterial() throws IOException {
         // Arrange
         MaterialConverter materialConverter = new MaterialConverter();
         CourseMaterialEntity courseMaterial = new CourseMaterialEntity();
@@ -53,7 +53,7 @@ public class MaterialConverterTest {
     }
 
     @Test
-    public void testConvertMaterialWithNullInput() {
+    void testConvertMaterialWithNullInput() {
         // Arrange
         MaterialConverter materialConverter = new MaterialConverter();
 
@@ -65,7 +65,7 @@ public class MaterialConverterTest {
     }
 
     @Test
-    public void testConvertMaterialWithNullMaterial() {
+    void testConvertMaterialWithNullMaterial() {
         // Arrange
         MaterialConverter materialConverter = new MaterialConverter();
         CourseMaterialEntity courseMaterial = new CourseMaterialEntity();

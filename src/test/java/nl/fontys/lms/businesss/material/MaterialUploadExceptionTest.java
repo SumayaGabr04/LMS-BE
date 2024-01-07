@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class MaterialUploadExceptionTest {
+class MaterialUploadExceptionTest {
     @Test
-    public void testConstructorWithMessage() {
+    void testConstructorWithMessage() {
         // Arrange
         String errorMessage = "Test error message";
 
@@ -21,7 +21,7 @@ public class MaterialUploadExceptionTest {
     }
 
     @Test
-    public void testConstructorWithMessageAndCause() {
+    void testConstructorWithMessageAndCause() {
         // Arrange
         String errorMessage = "Test error message";
         Throwable cause = new RuntimeException("Test cause");

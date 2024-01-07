@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
-public class DeleteEnrollmentUseCaseImplTest {
+class DeleteEnrollmentUseCaseImplTest {
     @Mock
     private EnrollmentRepository enrollmentRepository;
 

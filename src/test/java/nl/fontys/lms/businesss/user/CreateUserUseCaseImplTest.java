@@ -23,7 +23,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.never;
 
 @ExtendWith(SpringExtension.class)
-public class CreateUserUseCaseImplTest {
+class CreateUserUseCaseImplTest {
 
     @Mock
     private UserRepository userRepository;

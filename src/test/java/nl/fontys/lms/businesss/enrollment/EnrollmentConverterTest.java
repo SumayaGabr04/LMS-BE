@@ -11,7 +11,7 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EnrollmentConverterTest {
+class EnrollmentConverterTest {
     @Test
     void testConvert() {
         // Arrange

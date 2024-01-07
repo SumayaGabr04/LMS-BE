@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CourseNameAlreadyExistsTest {
+class CourseNameAlreadyExistsTest {
     @Test
     void testCourseNameAlreadyExistsException() {
         CourseNameAlreadyExists exception = new CourseNameAlreadyExists();

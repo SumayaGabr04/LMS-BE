@@ -17,7 +17,7 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class GetEnrolledCoursesUseCaseImplTest {
+class GetEnrolledCoursesUseCaseImplTest {
     @InjectMocks
     private GetEnrolledCoursesUseCaseImpl getEnrolledCoursesUseCase;
 

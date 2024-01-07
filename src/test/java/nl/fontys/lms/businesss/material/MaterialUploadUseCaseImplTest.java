@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class MaterialUploadUseCaseImplTest {
+class MaterialUploadUseCaseImplTest {
 
     @MockBean
     private CourseMaterialRepository materialRepository;

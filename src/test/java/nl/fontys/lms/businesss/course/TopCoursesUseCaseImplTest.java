@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class TopCoursesUseCaseImplTest {
+class TopCoursesUseCaseImplTest {
     @Mock
     private CourseRepository courseRepository;
 

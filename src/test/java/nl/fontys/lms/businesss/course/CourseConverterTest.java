@@ -9,7 +9,7 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CourseConverterTest {
+class CourseConverterTest {
     @Test
     void testConvert() {
         // Arrange

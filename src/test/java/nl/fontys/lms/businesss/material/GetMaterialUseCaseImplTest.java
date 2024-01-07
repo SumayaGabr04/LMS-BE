@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-public class GetMaterialUseCaseImplTest {
+class GetMaterialUseCaseImplTest {
     @Mock
     private CourseMaterialRepository materialRepository;
 

@@ -49,7 +49,7 @@ class CreateCourseUseCaseImplTest {
     }
 
     @Test
-    public void testCreateCourse_Success() {
+    void testCreateCourse_Success() {
         // Arrange
         CreateCourseRequest request = new CreateCourseRequest(
                 "Math101",
