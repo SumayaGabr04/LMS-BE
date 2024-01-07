@@ -11,7 +11,9 @@ import nl.fontys.lms.domain.user.User;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatMessage {
-    private String content;
-    private User sender;
-    private User recipient;
+    private String senderName;
+    private String receiverName;
+    private String message;
+    private String date;
+    private Status status;
 }
