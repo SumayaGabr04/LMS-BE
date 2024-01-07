@@ -1,12 +1,10 @@
 package nl.fontys.lms.business.user.impl;
 
-import lombok.NoArgsConstructor;
 import nl.fontys.lms.domain.user.User;
 import nl.fontys.lms.persistence.entity.UserEntity;
 
 import java.util.Optional;
 
-@NoArgsConstructor
 public class UserConverter {
 
 

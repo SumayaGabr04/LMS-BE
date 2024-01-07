@@ -18,7 +18,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     @Override
     public void updateUser(UpdateUserRequest request) {
         UserEntity existingUser = userRepository.findById(request.getId())
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + request.getId()));
 
         // Update user fields as needed
         existingUser.setFirstName(request.getFirstName());

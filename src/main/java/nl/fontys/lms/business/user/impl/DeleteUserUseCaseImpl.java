@@ -19,7 +19,8 @@ public class DeleteUserUseCaseImpl implements DeleteUserUseCase {
         Optional<UserEntity> existingUserOptional = userRepository.findById(userId);
 
         if (existingUserOptional.isEmpty()) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User not found with ID: " + userId);
+
         }
 
 

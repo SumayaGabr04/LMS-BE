@@ -25,7 +25,7 @@ public CreateCourseResponse createCourse(CreateCourseRequest request) {
     ValidationResult validationResult = requestValidator.validateCourseRequest(request);
     if (!validationResult.isValid()) {
         return CreateCourseResponse.builder()
-                .errorMessages(validationResult.getErrorMessages())
+                .errorMessages(new ArrayList<>(validationResult.getErrorMessages()))
                 .build();
     }
 

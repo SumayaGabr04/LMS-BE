@@ -69,7 +69,6 @@ public class CoursesController {
     @GetMapping("/top3enrolled")
     public ResponseEntity<TopCoursesResponse> getTop3CoursesWithMostEnrolledStudents() {
         TopCoursesResponse topCoursesResponse = topCoursesUseCase.getTop3CoursesWithMostEnrolledStudents();
-        System.out.println("Top 3 Courses Response: " + topCoursesResponse);
         return ResponseEntity.ok(topCoursesResponse);
     }
 }

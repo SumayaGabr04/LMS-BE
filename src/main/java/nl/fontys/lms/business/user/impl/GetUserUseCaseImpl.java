@@ -21,13 +21,14 @@ public class GetUserUseCaseImpl implements GetUserUseCase {
     public GetUserResponse getUserById(GetUserRequest request) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(request.getId());
 
+
         if (userEntityOptional.isEmpty()) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User not found with ID: " + request.getId());
+
         }
 
         UserEntity userEntity = userEntityOptional.get();
         User user = UserConverter.convert(userEntity);
-
         return GetUserResponse.builder().user(user).build();
     }
 }

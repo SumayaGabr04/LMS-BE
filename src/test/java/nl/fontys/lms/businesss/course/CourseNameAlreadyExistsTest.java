@@ -48,9 +48,9 @@ class CourseNameAlreadyExistsTest {
 
     @Test
     void testUserNotFoundException() {
-        UserNotFoundException exception = new UserNotFoundException();
+        UserNotFoundException exception = new UserNotFoundException("User not found with ID:" );
 
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
-        assertEquals("invalid course name", exception.getReason());
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        assertEquals("User not found with ID:", exception.getReason());
     }
 }

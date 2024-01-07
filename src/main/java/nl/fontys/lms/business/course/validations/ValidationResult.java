@@ -1,15 +1,16 @@
 package nl.fontys.lms.business.course.validations;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ValidationResult {
-    private final ArrayList<String> errorMessages;
+    private final List<String> errorMessages;
 
-    public ValidationResult(ArrayList<String> errorMessages) {
+    public ValidationResult(List<String> errorMessages) {
         this.errorMessages = errorMessages;
     }
 
-    public ArrayList<String> getErrorMessages() {
+    public List<String> getErrorMessages() {
         return errorMessages;
     }
 
