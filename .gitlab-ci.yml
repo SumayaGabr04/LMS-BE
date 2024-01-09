@@ -64,5 +64,6 @@ deploy:
 sonar:
   stage: sonar
   script:
-    - gradle sonar
+    - gradle sonar -Pcoverage -Dsonar.host.url="http://host.docker.internal:9000" -Dsonar.token=$SONARQUBE_TOKEN --info
+
 
