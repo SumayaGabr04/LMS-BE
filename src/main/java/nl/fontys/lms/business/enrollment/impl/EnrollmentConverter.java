@@ -5,6 +5,9 @@ import nl.fontys.lms.domain.enrollment.Enrollment;
 import nl.fontys.lms.persistence.entity.EnrollmentEntity;
 
 public class EnrollmentConverter {
+    private EnrollmentConverter() {
+        // private constructor to hide the implicit public one
+    }
     public static Enrollment convert(EnrollmentEntity enrollmentEntity) {
         if (enrollmentEntity == null) {
             return null;

@@ -28,4 +28,13 @@ class DeleteEnrollmentUseCaseImplTest {
         // Then
         verify(enrollmentRepository).deleteById(enrollmentId);
     }
+
+    @Test
+    void deleteExpiredEnrollments_shouldInvokeRepositoryDeleteExpiredEnrollments() {
+        // When
+        deleteEnrollmentUseCase.deleteExpiredEnrollments();
+
+        // Then
+        verify(enrollmentRepository).deleteExpiredEnrollments();
+    }
 }

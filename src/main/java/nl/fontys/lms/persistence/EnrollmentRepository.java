@@ -1,5 +1,6 @@
 package nl.fontys.lms.persistence;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 import nl.fontys.lms.persistence.entity.EnrollmentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,5 +27,10 @@ public interface EnrollmentRepository extends JpaRepository<EnrollmentEntity, Lo
 
     @Transactional
     void deleteById(Long enrollmentId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM EnrollmentEntity e WHERE e.course.endDate < CURRENT_DATE")
+    void deleteExpiredEnrollments();
 
 }

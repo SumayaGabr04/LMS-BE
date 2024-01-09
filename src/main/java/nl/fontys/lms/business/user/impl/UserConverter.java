@@ -6,7 +6,9 @@ import nl.fontys.lms.persistence.entity.UserEntity;
 import java.util.Optional;
 
 public class UserConverter {
-
+    private UserConverter() {
+        // private constructor to hide the implicit public one
+    }
 
     public static User convert(UserEntity userEntity) {
         if (userEntity == null) {

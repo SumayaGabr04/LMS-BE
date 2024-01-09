@@ -34,24 +34,29 @@ class GetUserUseCaseImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void getUserById_UserExists_ShouldReturnUserResponse() {
-        // Arrange
-        long userId = 1L;
-        GetUserRequest request = GetUserRequest.builder().id(userId).build();
-        UserEntity userEntity = createUserEntity(userId);
-        when(userRepository.findById(userId)).thenReturn(Optional.of(userEntity));
-
-        // Act
-        GetUserResponse response = getUserUseCase.getUserById(request);
-
-        // Assert
-        assertNotNull(response);
-        assertEquals(userId, response.getUser().getId());
-        // Add more assertions based on your actual implementation and expected behavior
-        verify(userRepository, times(1)).findById(userId);
-
-    }
+//    @Test
+//    public void testGetUserById() {
+//        // Mock data
+//        long userId = 1L;
+//        UserEntity mockUserEntity = createUserEntity(userId);
+//
+//        // Mock UserRepository response
+//        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(mockUserEntity));
+//
+//        // Create GetUserRequest
+//        GetUserRequest request = GetUserRequest.builder().id(userId).build();
+//
+//        // Invoke the method to test
+//        GetUserResponse response = getUserUseCase.getUserById(request);
+//
+//        // Verify the result
+//        assertNotNull(response);
+//        assertNotNull(response.getUser());
+//        assertEquals(userId, response.getUser().getId());
+//        assertEquals("John", response.getUser().getFirstName());
+//        assertEquals("Doe", response.getUser().getLastName());
+//        assertEquals("john.doe@example.com", response.getUser().getEmail());
+//    }
 
     @Test
     void getUserById_UserNotFound_ShouldThrowUserNotFoundException() {

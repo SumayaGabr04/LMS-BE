@@ -1,6 +1,5 @@
 package nl.fontys.lms.business.course.validations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationResult {

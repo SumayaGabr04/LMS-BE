@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseConverter {
+    private CourseConverter() {
+        // private constructor to hide the implicit public one
+    }
     public static Course convert(CourseEntity course) {
         return Course.builder()
                 .id(course.getId())
