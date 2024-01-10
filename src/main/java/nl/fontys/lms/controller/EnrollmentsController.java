@@ -7,6 +7,8 @@ import nl.fontys.lms.business.enrollment.CreateEnrollmentUseCase;
 import nl.fontys.lms.business.enrollment.DeleteEnrollmentUseCase;
 import nl.fontys.lms.business.enrollment.GetEnrollmentsForCourseUseCase;
 import nl.fontys.lms.business.enrollment.GetEnrollmentsForStudentUseCase;
+import nl.fontys.lms.business.login.impl.AuthService;
+import nl.fontys.lms.configuration.security.token.AccessToken;
 import nl.fontys.lms.domain.enrollment.CreateEnrollmentRequest;
 import nl.fontys.lms.domain.enrollment.CreateEnrollmentResponse;
 import nl.fontys.lms.domain.enrollment.GetEnrollmentsForCourseResponse;
@@ -25,6 +27,7 @@ public class EnrollmentsController {
     private final GetEnrollmentsForCourseUseCase getEnrollmentsForCourseUseCase;
     private final GetEnrollmentsForStudentUseCase getEnrollmentsForStudentUseCase;
     private final DeleteEnrollmentUseCase deleteEnrollmentUseCase;
+    private final AuthService authService;
 
     @PostMapping()
     public ResponseEntity<CreateEnrollmentResponse> createEnrollment(@RequestBody @Valid CreateEnrollmentRequest request) {
@@ -40,8 +43,18 @@ public class EnrollmentsController {
 
     @GetMapping("student/{studentId}")
     public ResponseEntity<GetEnrollmentsForStudentResponse> getEnrollmentsForStudent(@PathVariable("studentId") Long studentId) {
-        GetEnrollmentsForStudentResponse response = getEnrollmentsForStudentUseCase.getEnrollmentsForStudent(studentId);
-        return ResponseEntity.ok(response);
+        // Get the authenticated user's ID from the AccessToken
+        AccessToken authenticatedUser = authService.getAuthenticatedUserInRequest();
+        Long authenticatedUserId = authenticatedUser != null ? authenticatedUser.getUserId() : null;
+
+        // Check if the authenticated user has the correct permissions to access the requested student's data
+        if (authenticatedUserId != null && authenticatedUserId.equals(studentId)) {
+            GetEnrollmentsForStudentResponse response = getEnrollmentsForStudentUseCase.getEnrollmentsForStudent(studentId);
+            return ResponseEntity.ok(response);
+        } else {
+            // If the user doesn't have the correct permissions, return an unauthorized response
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @DeleteMapping("/{enrollmentId}")
