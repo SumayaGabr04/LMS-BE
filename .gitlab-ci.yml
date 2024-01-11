@@ -34,7 +34,7 @@ build:
 
 test:
   stage: test
-  script: bash ./gradlew check
+  script: ./gradlew check
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
@@ -58,14 +58,9 @@ scan:
 
 deploy:
   stage: deploy
-  script:
-    - docker network create docker_lms_network_staging || true
-    - docker run --net $NETWORK_NAME --name $DB_CONTAINER_NAME -e MYSQL_DATABASE=$MYSQL_DATABASE -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD -p 3390:3306 -d mysql
-    - docker build -t lms .
-    - docker run -d -p 8090:8080 --net=$NETWORK_NAME --env spring_profiles_active=$SPRING_PROFILES_ACTIVE --name=$APP_CONTAINER_NAME lms
-  environment:
-    name: staging
-    url: http://localhost:8090
+  script: echo "Define your deployment script!"
+  environment: production
+
 
 sonar:
   stage: sonar
