@@ -34,8 +34,7 @@ build:
 
 test:
   stage: test
-    script:
-    - ls -l  # Add this line to list permissions
+  script: 
     - chmod +x ./gradlew
     - ./gradlew check
   cache:
