@@ -58,7 +58,7 @@ scan:
 
 deploy:
   stage: deploy
-  script: echo "Define your deployment script!"
+  script: echo "Define your deployment scripts!"
   environment: production
 
 sonar:
