@@ -34,7 +34,10 @@ build:
 
 test:
   stage: test
-  script: ./gradlew check
+  script:
+    - ls -l   # Check current directory content
+    - ls -l ./gradlew   # Check gradlew file permissions
+    - bash ./gradlew check
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
