@@ -24,44 +24,21 @@ stages:
 
 build:
   stage: build
-  script: gradle --build-cache assemble
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: push
-    paths:
-      - build
-      - .gradle
+  script: gradle assemble
+
 
 test:
   stage: test
-  script: gradle check
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
-    paths:
-      - build
-      - .gradle
+  script: gradle test
 
-scan:
-  stage: test
+sonar:
+  stage: sonar
   script:
     - gradle sonar -Pcoverage -Dsonar.host.url="http://host.docker.internal:9000" -Dsonar.token=$SONARQUBE_TOKEN --info
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
-    paths:
-      - build
-      - .gradle
-
-  dependencies:
-    - test
 
 deploy:
   stage: deploy
   script: echo "Define your deployment scripts!"
   environment: production
 
-sonar:
-  stage: sonar
-  script:
-    - gradle sonar -Pcoverage -Dsonar.host.url="http://host.docker.internal:9000" -Dsonar.token=$SONARQUBE_TOKEN --info
+
