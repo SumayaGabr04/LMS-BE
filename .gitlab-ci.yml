@@ -30,6 +30,10 @@ build:
 test:
   stage: test
   script: gradle test
+  artifacts:
+    when: always
+    paths:
+      - build/reports
 
 sonar:
   stage: sonar
